@@ -1,7 +1,7 @@
 {
-  "name": "Frpc",
+  "name": "tunnel2local",
   "version": "1.0.10",
-  "slug": "Frpc",
+  "slug": "tunnel2local",
   "description": "Browser the Home Assistant From Internet",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "url": "https://github.com/cuihaijun/hassio-addons/tree/master/tunnel2local",
