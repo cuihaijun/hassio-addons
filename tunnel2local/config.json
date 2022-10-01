@@ -7,7 +7,7 @@
   "url": "https://github.com/cuihaijun/hassio-addons/tree/master/tunnel2local",
   "startup": "services",
   "boot": "auto",
-  "image": "zhujisheng/{arch}-addon-tunnel2local",
+  "image": "cuihaijun/{arch}-addon-tunnel2local",
   "options": {
     "frp_server": "frp.hasskit.com",
     "frp_server_port": 7000,
