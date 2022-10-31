@@ -8,7 +8,17 @@
   ],
   "description": "filebrowser provides a file managing interface within a specified directory and it can be used to upload, delete, preview, rename and edit your files",
   "devices": [
-    "/dev/mmcblk0p8",
+    "/dev/sda",
+    "/dev/sdb",
+    "/dev/sdc",
+    "/dev/sdd",
+    "/dev/sde",
+    "/dev/sdf",
+    "/dev/sdg",
+    "/dev/nvme",
+    "/dev/nvme0n1p1",
+    "/dev/nvme0n1p2",
+    "/dev/mmcblk",
     "/dev/sda1",
     "/dev/sdb1",
     "/dev/sdc1",
@@ -22,10 +32,19 @@
     "/dev/sdd2",
     "/dev/sde2",
     "/dev/sdf2",
-    "/dev/sdg2"
+    "/dev/sdg2",
+    "/dev/sda3",
+    "/dev/sdb3",
+    "/dev/sda4",
+    "/dev/sdb4",
+    "/dev/nvme0",
+    "/dev/nvme1",
+    "/dev/nvme2"
   ],
   "environment": {
-    "FB_BASEURL": "/filebrowser"
+    "FB_BASEURL": "/filebrowser",
+    "PGID": "0",
+    "PUID": "0"
   },
   "ingress": true,
   "ingress_port": 8099,
