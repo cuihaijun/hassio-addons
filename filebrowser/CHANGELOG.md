@@ -1,38 +1,5 @@
 
-## 2.22.4 (23-07-2022)
-- Update to latest version from hurlenko/filebrowser-docker
-
-## 2.22.3 (07-07-2022)
-- Update to latest version from hurlenko/filebrowser-docker
-
-## 2.22.2 (05-07-2022)
-- Update to latest version from hurlenko/filebrowser-docker
-
-## 2.22.1 (09-06-2022)
-- Update to latest version from hurlenko/filebrowser-docker
-
-## 2.22.0 (06-06-2022)
-- Update to latest version from hurlenko/filebrowser-docker
-- Add codenotary sign
-
-## 2.21.1 (23-02-2022)
-
-- Update to latest version from hurlenko/filebrowser-docker
-
-## 2.21.0 (22-02-2022)
-
-- Update to latest version from hurlenko/filebrowser-docker
-- Cleanup: config base folder changed to /config/addons_config (thanks @bruvv)
-
-## 2.20.1 (23-12-2021)
-
-- Update to latest version from hurlenko/filebrowser-docker
-- Mount ssl in write
-- New standardized logic for Dockerfile build and packages installation
-- Mount nvme drives
-
 ## 2.19.0 (25-11-2021)
-
 - Update to latest version from hurlenko/filebrowser-docker
 - Allow mounting local drives by label. Just pust the label instead of sda1 for example
 
@@ -42,7 +9,7 @@
 - Allow mounting of devices up to sdg2
 - Allow uploads >16mb
 - Allow local mount in protected mode
-- SMB : accepts several disks separated by commas mounted in /mnt/$sharename
+- Improve SMB mount code to v1.5 ; accepts several network disks separated by commas (//123.12.12.12/share,//123.12.12.12/hello) that are mount to /mnt/$sharename
 
 ## 2.17.2 (28-08-2021)
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env bashio
-# shellcheck shell=bash
 
 bashio::log.info "Starting Portainer..."
 
@@ -25,7 +24,7 @@ if bashio::config.true 'ssl'; then
   options+=(--sslcert /ssl/$CERTFILE)
   options+=(--sslkey /ssl/$KEYFILE)
   bashio::log.info "... ssl activated"
-fi
+fi 
 
 ################
 # SET PASSWORD #
