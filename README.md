@@ -1,1 +1,1 @@
-把自己常用的HomeAssistant插件集中一起，支持本地化启动运行。
+自己常用的HomeAssistant插件集中一起，支持本地化启动运行。
