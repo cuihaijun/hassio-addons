@@ -78,7 +78,14 @@
   "schema": {
     "ssl": "bool",
     "certfile": "str",
-    "keyfile": "str"
+    "keyfile": "str",
+    "localdisks": "str?",
+    "networkdisks": "str?",
+    "cifsusername": "str?",
+    "cifspassword": "str?",
+    "smbv1": "bool?",
+    "NoAuth": "bool",
+    "base_folder": "str?"
   },
   "slug": "filebrowser",
   "startup": "services",
