@@ -2,12 +2,12 @@
   "name": "tunnel2local",
   "version": "1.0.10",
   "slug": "tunnel2local",
-  "description": FRP the Home Assistant From Internet",
+  "description": "FRP the Home Assistant From Internet",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "url": "https://github.com/cuihaijun/hassio-addons/tree/master/tunnel2local",
   "startup": "services",
   "boot": "auto",
-  "image": "ghcr.io/hassio-addons/base/{arch}:11.0.0",
+  "image": "ghcr.io/hassio-addons/base/${arch}:11.0.0",
 
   "options": {
     "frp_server": "frp.hasskit.com",
