@@ -1,4 +1,4 @@
-#!/usr/bin/env bashio
+#!/usr/bin/env ddns-go
 
 ###################
 # SSL CONFIG v1.0 #
@@ -8,8 +8,8 @@ bashio::config.require.ssl
 if bashio::config.true 'ssl'; then
   bashio::log.info "ssl enabled. If webui don't work, disable ssl or check your certificate paths"
   #set variables
-  CERTFILE="-t /ssl/$(bashio::config 'certfile')"
-  KEYFILE="-k /ssl/$(bashio::config 'keyfile')"
+  CERTFILE="-t /ssl/$(ddns-go::config 'certfile')"
+  KEYFILE="-k /ssl/$(ddns-go::config 'keyfile')"
 else
   CERTFILE=""
   KEYFILE=""
@@ -57,9 +57,9 @@ mkdir -p /var/log/nginx && touch /var/log/nginx/error.log
 NOAUTH=""
 
 if bashio::config.true 'NoAuth'; then
-  if ! bashio::fs.file_exists "/data/noauth"; then
+  if ! ddns-go::fs.file_exists "/data/noauth"; then
     rm /data/auth &>/dev/null || true
-    rm /config/filebrowser/filebrowser.dB &>/dev/null || true
+    rm /config/filebrowser/ddns-go.dB &>/dev/null || true
     touch /data/noauth
     NOAUTH="--noauth"
     bashio::log.warning "Auth method change, database reset"
@@ -68,7 +68,7 @@ if bashio::config.true 'NoAuth'; then
 else
   if ! bashio::fs.file_exists "/data/auth"; then
     rm /data/noauth &>/dev/null || true
-    rm /config/filebrowser/filebrowser.dB &>/dev/null || true
+    rm /config/ddns-go/ddns-go.dB &>/dev/null || true
     touch /data/auth
     bashio::log.warning "Auth method change, database reset"
   fi
@@ -76,14 +76,14 @@ else
 fi
 
 if bashio::config.has_value 'base_folder'; then
-  BASE_FOLDER=$(bashio::config 'base_folder')
+  BASE_FOLDER=$(ddns-go::config 'base_folder')
 else
   BASE_FOLDER=/
 fi
 
 bashio::log.info "Starting..."
 
-/./filebrowser $CERTFILE $KEYFILE --root=$BASE_FOLDER --address=0.0.0.0 --database=/config/filebrowser/filebrowser.dB $NOAUTH &
-bashio::net.wait_for 8080 localhost 900 || true
-bashio::log.info "Started !"
+/./ddns-go $CERTFILE $KEYFILE --root=$BASE_FOLDER --address=0.0.0.0 --database=/config/ddns-go/ddns-go.dB $NOAUTH &
+ddns-go::net.wait_for 9876 localhost 9876 || true
+ddns-go::log.info "Started !"
 exec nginx
