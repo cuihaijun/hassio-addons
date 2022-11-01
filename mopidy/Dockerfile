@@ -6,7 +6,7 @@ FROM ${BUILD_FROM}
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Copy Python requirements file
-# COPY requirements.txt /tmp/
+COPY requirements.txt /tmp/
 
 # Setup base
 RUN \
