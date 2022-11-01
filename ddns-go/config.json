@@ -37,7 +37,7 @@
     "keyfile": "str",
     "password": "str?"
   },
-  "slug": "portainer",
+  "slug": "ddns-go",
   "startup": "services",
   "upstream": "4.2.0",
   "url": "https://github.com/alexbelgium/hassio-addons",
