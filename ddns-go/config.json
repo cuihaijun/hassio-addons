@@ -3,10 +3,9 @@
     "aarch64",
     "amd64",
     "armhf",
-    "x86_64",
     "armv7"
   ],
-  "description": "Manage your Docker environment with ease",
+  "description": "Manage your ddns",
   "docker_api": true,
   "hassio_api": true,
   "ingress": true,
@@ -40,7 +39,7 @@
   "slug": "ddns-go",
   "startup": "services",
   "upstream": "4.2.0",
-  "url": "https://github.com/alexbelgium/hassio-addons",
+  "url": "https://github.com/cuihaijun/hassio-addons",
   "version": "4.2.0",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:9876]"
 }
