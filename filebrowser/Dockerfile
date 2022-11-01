@@ -1,14 +1,9 @@
 ARG BUILD_VERSION
 ARG BUILD_UPSTREAM="2.22.4"
 FROM hurlenko/filebrowser:v${BUILD_UPSTREAM}
-ARG BASHIO_VERSION=0.14.3
+ENV BASHIO_VERSION=0.14.3
 
-RUN \
-    ################
-    # Install apps #
-    ################
-    apk add --no-cache \
-    curl \
+ENV PACKAGES="curl \
     jq \
     bash \
     cifs-utils \
@@ -16,7 +11,13 @@ RUN \
     samba \
     samba-client \
     bind-tools \
-    nginx \
+    nginx"
+
+RUN \
+    ################
+    # Install apps #
+    ################
+    apk add --no-cache ${PACKAGES} \
     \
     ##################
     # Install bashio #
@@ -26,12 +27,13 @@ RUN \
     | tar -xzf - --strip 1 -C /tmp/bashio \
     && mv /tmp/bashio/lib /usr/lib/bashio \
     && ln -s /usr/lib/bashio/bashio /usr/bin/bashio \
-    && rm -rf /tmp/bashio \
-    \
+    && rm -rf /tmp/bashio || true
+
+RUN \
     ########################################
     # Correct upstream image folders links #
     ########################################
-    && mkdir -p -m 777 /config/filebrowser	|| true
+    mkdir -p -m 777 /config/filebrowser
 
 # Copy root filesystem
 COPY rootfs / 

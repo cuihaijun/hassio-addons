@@ -6,21 +6,17 @@ if [ ! -f "/usr/bin/bashio" ]; then
         ################
         # Install apps #
         ################
-        apk add --no-cache \
-            curl \
-            jq \
-            bash \
-            cifs-utils \
-            keyutils \
-            samba \
-            samba-client \
-            bind-tools \
-            nginx
+        PACKAGES="${PACKAGES:="curl"}"
+        
+        apt-get clean \
+        && apt-get update \
+        && apt-get install -y --no-install-recommends ${PACKAGES} 2>/dev/null \
+        || apk add --no-cache ${PACKAGES}
 
         ###################
         # Install bashio #
         ##################
-        BASHIO_VERSION=0.14.3
+        
         mkdir -p /tmp/bashio
         curl -L -f -s "https://github.com/hassio-addons/bashio/archive/v${BASHIO_VERSION}.tar.gz" |
             tar -xzf - --strip 1 -C /tmp/bashio
@@ -28,11 +24,6 @@ if [ ! -f "/usr/bin/bashio" ]; then
         ln -s /usr/lib/bashio/bashio /usr/bin/bashio
         rm -rf /tmp/bashio
 
-        ########################################
-        # Correct upstream image folders links #
-        ########################################
-        mkdir -p -m 777 /config/filebrowser || true
-
     ) >/dev/null
-    echo "Bashio installed"
+
 fi
