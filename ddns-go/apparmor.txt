@@ -1,6 +1,6 @@
 #include <tunables/global>
 
-profile 68949b71_filebrowser flags=(attach_disconnected,mediate_deleted) {
+profile 68949b71_ddns-go flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
   capability,

@@ -1,7 +1,6 @@
-ARG BUILD_VERSION
-ARG BUILD_UPSTREAM="2.22.4"
-FROM hurlenko/filebrowser:v${BUILD_UPSTREAM}
-ARG BASHIO_VERSION=0.14.3
+ARG BUILD_VERSION="4.2.0"
+ARG BUILD_UPSTREAM="4.2.0"
+FROM ghcr.io/hassio-addons/base/amd64:11.0.0
 
 RUN \
     ################
@@ -22,16 +21,16 @@ RUN \
     # Install bashio #
     ##################
     && mkdir -p /tmp/bashio \
-    && curl -L -f -s "https://github.com/hassio-addons/bashio/archive/v${BASHIO_VERSION}.tar.gz" \
-    | tar -xzf - --strip 1 -C /tmp/bashio \
-    && mv /tmp/bashio/lib /usr/lib/bashio \
-    && ln -s /usr/lib/bashio/bashio /usr/bin/bashio \
-    && rm -rf /tmp/bashio \
+    && curl -L -f -s ""https://github.com/jeessy2/ddns-go/releases/download/v${BUILD_UPSTREAM}/ddns-go_${BUILD_UPSTREAM}_linux_${ARCH}.tar.gz"" \
+    | tar -xzf - --strip 1 -C /tmp/ddns-go \
+    && mv /tmp/ddns-go/lib /usr/lib/ddns-go \
+    && ln -s /usr/lib/ddns-go/ddns-go /usr/bin/ddns-go \
+    && rm -rf /tmp/ddns-go \
     \
     ########################################
     # Correct upstream image folders links #
     ########################################
-    && mkdir -p -m 777 /config/filebrowser	|| true
+    && mkdir -p -m 777 /config/ddns-go	|| true
 
 # Copy root filesystem
 COPY rootfs / 
