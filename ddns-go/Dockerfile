@@ -16,7 +16,7 @@ RUN \
     if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
     && if [ "${BUILD_ARCH}" = "armhf" ]; then ARCH="arm"; fi \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="arm"; fi \
-    && if [ "${BUILD_ARCH}" = "amd64" ]; then ARCH="amd64"; fi \
+    && if [ "${BUILD_ARCH}" = "amd64" ]; then ARCH="arm64"; fi \
     \
     && curl -L -s \
     "https://github.com/jeessy2/ddns-go/releases/download/${BUILD_UPSTREAM}/ddns-go_${BUILD_UPSTREAM}_Linux_${ARCH}.tar.gz" \
