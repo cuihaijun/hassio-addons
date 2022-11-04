@@ -8,23 +8,24 @@ ENV LANG C.UTF-8
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
-ARG BUILD_ARCH=amd64
-ARG BUILD_UPSTREAM="4.2.0"
-ENV PACKAGES="nginx"
+##############################################################################################################################
+#ARG BUILD_ARCH=amd64
+#ARG BUILD_UPSTREAM="4.2.0"
+#ENV PACKAGES="nginx"
 
-RUN \
-    if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
-    && if [ "${BUILD_ARCH}" = "armhf" ]; then ARCH="arm"; fi \
-    && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="arm"; fi \
-    && if [ "${BUILD_ARCH}" = "amd64" ]; then ARCH="arm64"; fi \
-    \
-    && curl -L -s \
-    "https://github.com/jeessy2/ddns-go/releases/download/${BUILD_UPSTREAM}/ddns-go_${BUILD_UPSTREAM}_Linux_${ARCH}.tar.gz" \
-    | tar zxvf - -C /opt/
+#RUN \
+#    if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
+#    && if [ "${BUILD_ARCH}" = "armhf" ]; then ARCH="arm"; fi \
+#    && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="arm"; fi \
+#    && if [ "${BUILD_ARCH}" = "amd64" ]; then ARCH="amd64"; fi \
+#    \
+#    && curl -L -s \
+#    "https://github.com/jeessy2/ddns-go/releases/download/${BUILD_UPSTREAM}/ddns-go_${BUILD_UPSTREAM}_Linux_${ARCH}.tar.gz" \
+#    | tar zxvf - -C /opt/
 
-RUN \
-    apk add --no-cache ${PACKAGES} || true
-
+#RUN \
+#    apk add --no-cache ${PACKAGES} || true
+###############################################################################################################################
 # Copy root filesystem
 COPY rootfs /
 
