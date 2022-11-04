@@ -8,7 +8,7 @@ ENV LANG C.UTF-8
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
-#ARG BUILD_UPSTREAM="4.2.0"
+ARG BUILD_UPSTREAM="v4.2.0"
 
 # Copy root filesystem
 COPY rootfs /
