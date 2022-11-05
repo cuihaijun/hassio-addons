@@ -9,7 +9,6 @@
   "description": "filebrowser provides a file managing interface within a specified directory and it can be used to upload, delete, preview, rename and edit your files",
   "devices": [
     "/dev/mmcblk0p8",
-    "/dev/sda1",
     "/dev/sdb1",
     "/dev/sdc1",
     "/dev/sdd1",

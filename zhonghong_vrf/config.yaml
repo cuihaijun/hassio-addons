@@ -12,11 +12,11 @@ arch:
 boot: auto
 #image: xswxm/{arch}-addon-zhonghong_vrf
 options:
-  broker: "192.168.123.200"
+  broker: "192.168.1.3"
   port: "1883"
   username: "mqtt"
   password: "mqtt"
-  gateway: "192.168.123.251"
+  gateway: "192.168.1.251"
 schema:
   broker: str
   port: str

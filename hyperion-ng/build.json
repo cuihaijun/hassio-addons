@@ -1,8 +1,9 @@
 {
   "build_from": {
-    "amd64": "homeassistant/amd64-base-debian",
-    "armhf": "homeassistant/armhf-base-raspbian",
-    "aarch64": "homeassistant/aarch64-base-debian"
+    "amd64": "ghcr.io/hassio-addons/base/amd64:12.0.0",
+    "armhf": "ghcr.io/hassio-addons/base/armhf:12.0.0",
+    "aarch64": "ghcr.io/hassio-addons/base/aarch64:12.0.0",
+    "armv7": "ghcr.io/hassio-addons/base/armv7:12.0.0"
   },
   "squash": false,
   "args": {
