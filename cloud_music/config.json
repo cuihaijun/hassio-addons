@@ -38,8 +38,8 @@
   },
   "slug": "cloud_music",
   "startup": "services",
-  "upstream": "latest",
+  "upstream": "v4.8.2",
   "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "latest",
+  "version": "v4.8.2",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:3000]"
 }
