@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
 ARG BUILD_ARCH=amd64
-ARG BUILD_UPSTREAM="2.16.1"
+ARG BUILD_UPSTREAM="2.16.0"
 ENV PACKAGES="nginx"
 
 RUN \
