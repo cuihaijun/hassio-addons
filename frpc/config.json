@@ -12,7 +12,7 @@
     "frp_server": "frp.hasskit.com",
     "frp_server_port": 7000,
     "frp_token": "hasskit18066034545",
-    "local_host": "traccar",
+    "local_host": "homeassistant",
     "local_port": 5023,
     "tunnel_type": "tcp",
     "http_domain": ""
