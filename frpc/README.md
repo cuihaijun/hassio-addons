@@ -1,4 +1,4 @@
-# Home Assistant Add-on: tunnel2local
+# Home Assistant Add-on: frp
 
 通过frp隧道，使局域网中的homeassistant可以通过公网访问。
 
