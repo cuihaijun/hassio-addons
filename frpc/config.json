@@ -9,11 +9,11 @@
   "boot": "auto",
   "image": "zhujisheng/{arch}-addon-tunnel2local",
   "options": {
-    "frp_server": "frp.hasskit.com",
-    "frp_server_port": 7000,
-    "frp_token": "hasskit18066034545",
-    "local_host": "a0d7b954-traccar",
-    "local_port": 5023,
+    "frp_server": "",
+    "frp_server_port": "",
+    "frp_token": "",
+    "local_host": "",
+    "local_port": "",
     "tunnel_type": "tcp",
     "http_domain": ""
   },
