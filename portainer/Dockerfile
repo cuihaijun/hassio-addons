@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:12.0.0
+ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:12.2.4
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
@@ -11,14 +11,21 @@ ARG BUILD_UPSTREAM="2.16.0"
 ENV PACKAGES="nginx"
 
 RUN \
-    if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
-    && if [ "${BUILD_ARCH}" = "armhf" ]; then ARCH="arm"; fi \
-    && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="arm"; fi \
-    && if [ "${BUILD_ARCH}" = "amd64" ]; then ARCH="amd64"; fi \
+    BUILD_ARCH=$(uname -m) \
+    && echo "${BUILD_ARCH}" \
+    && BUILD_ARCH=${BUILD_ARCH:-x86} \
+    && if [[ "${BUILD_ARCH}" == *aarch64* ]]; then ARCH="arm64"; fi \
+    && if [[ "${BUILD_ARCH}" == *armv8* ]]; then ARCH="arm64"; fi \
+    && if [[ "${BUILD_ARCH}" == *arm64* ]]; then ARCH="arm64"; fi \
+    && if [[ "${BUILD_ARCH}" == *armhf* ]]; then ARCH="arm"; fi \
+    && if [[ "${BUILD_ARCH}" == *armv7* ]]; then ARCH="arm"; fi \
+    && if [[ "${BUILD_ARCH}" == arm ]]; then ARCH="arm"; fi \
+    && if [[ "${BUILD_ARCH}" == *x86* ]]; then ARCH="amd64"; fi \
     \
-    && curl -L -s \
+    && curl -f -L -s \
     "https://github.com/portainer/portainer/releases/download/${BUILD_UPSTREAM}/portainer-${BUILD_UPSTREAM}-linux-${ARCH}.tar.gz" \
-    | tar zxvf - -C /opt/
+    | tar zxvf - -C /opt/ || printf '%s\n' "${BUILD_UPSTREAM}" > /PORTFILE
+
 
 RUN \
     apk add --no-cache ${PACKAGES} || true
