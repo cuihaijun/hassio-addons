@@ -32,6 +32,7 @@ RUN \
 
 # Copy root filesystem
 COPY rootfs /
+RUN chmod a+x /rootfs/etc/cont-init.d/* \
 
 ### LABELS
 ARG BUILD_ARCH
