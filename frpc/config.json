@@ -1,0 +1,31 @@
+{
+  "name": "frpc",
+  "version": "1.0.10",
+  "slug": "frpc",
+  "description": "Frpc the Home Assistant From Internet",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "url": "https://github.com/cuihaijun/hassio-addons/tree/master/frpc",
+  "startup": "services",
+  "boot": "auto",
+  "image": "zhujisheng/{arch}-addon-tunnel2local",
+  "options": {
+    "frp_server": "frp.hasskit.com",
+    "frp_server_port": 7000,
+    "frp_token": "hasskit18066034545",
+    "local_host": "a0d7b954-traccar",
+    "local_port": 5023,
+    "tunnel_type": "tcp",
+    "http_domain": ""
+  },
+  "schema": {
+    "frp_server": "str",
+    "frp_server_port": "port",
+    "frp_token": "str",
+    "local_host": "str",
+    "local_port": "port",
+    "tunnel_type": "list(tcp|http)",
+    "http_domain": "str?",
+    "http_subdomain_host": "str?",
+    "tcp_remote_port": "port?"
+  }
+}
