@@ -1,3 +1,5 @@
+## &#9888; Open Request : [✨ [REQUEST] Portainer Business Edition (opened 2023-06-14)](https://github.com/alexbelgium/hassio-addons/issues/873) by [@Frozenius](https://github.com/Frozenius)
+
 # Home assistant add-on: Portainer
 
 [![Donate][donation-badge]](https://www.buymeacoffee.com/alexbelgium)
@@ -17,8 +19,9 @@ Implemented changes : update to latest versions ; ingress ; ssl ; password setti
 
 _Thanks to everyone having starred my repo! To star it click on the image below, then it will be on top right. Thanks!_
 
+[![Stargazers repo roster for @alexbelgium/hassio-addons](https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.github/stars2.svg)](https://github.com/alexbelgium/hassio-addons/stargazers)
 
-[![Stargazers repo roster for @alexbelgium/hassio-addons](https://git-lister.onrender.com/api/stars/alexbelgium/hassio-addons?limit=30)](https://github.com/alexbelgium/hassio-addons/stargazers)
+![downloads evolution](https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/portainer/stats.png)
 
 ## About
 
@@ -33,7 +36,7 @@ volumes.
 
 ## RESTORE BACKUP
 
-Keep option password empty, and put your backup in the /share folder, this will be mounted in the addon
+Open the addon options and set the password to "". Restart the addon, it will allow to restore portainer from a backup. You need to put your backup in an accessible folder such as /share to have it mounted in the addon
 
 ## WARNING
 

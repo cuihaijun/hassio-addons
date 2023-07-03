@@ -1,49 +1,82 @@
+#============================#
+#  ALEXBELGIUM'S DOCKERFILE  #
+#============================#
+#           _.------.
+#       _.-`    ('>.-`"""-.
+# '.--'`       _'`   _ .--.)
+#    -'         '-.-';`   `
+#    ' -      _.'  ``'--.
+#        '---`    .-'""`
+#               /`
+#=== Home Assistant Addon ===#
+
+#################
+# 1 Build Image #
+#################
+
 ARG BUILD_VERSION
-ARG BUILD_UPSTREAM="2.22.4"
+ARG BUILD_UPSTREAM="2.23.0"
 FROM hurlenko/filebrowser:v${BUILD_UPSTREAM}
-ARG BASHIO_VERSION=0.14.3
 
-RUN \
-    ################
-    # Install apps #
-    ################
-    apk add --no-cache \
-    curl \
-    jq \
-    bash \
-    cifs-utils \
-    keyutils \
-    samba \
-    samba-client \
-    bind-tools \
-    nginx \
-    \
-    ##################
-    # Install bashio #
-    ##################
-    && mkdir -p /tmp/bashio \
-    && curl -L -f -s "https://github.com/hassio-addons/bashio/archive/v${BASHIO_VERSION}.tar.gz" \
-    | tar -xzf - --strip 1 -C /tmp/bashio \
-    && mv /tmp/bashio/lib /usr/lib/bashio \
-    && ln -s /usr/lib/bashio/bashio /usr/bin/bashio \
-    && rm -rf /tmp/bashio \
-    \
-    ########################################
-    # Correct upstream image folders links #
-    ########################################
-    && mkdir -p -m 777 /config/filebrowser	|| true
+##################
+# 2 Modify Image #
+##################
 
-# Copy root filesystem
-COPY rootfs / 
+# Set S6 wait time
+ENV S6_CMD_WAIT_FOR_SERVICES=1 \
+    S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
+    S6_SERVICES_GRACETIME=0
+
+##################
+# 3 Install apps #
+##################
+
+# Add rootfs
+COPY rootfs/ /
+
+# Corrects permissions for s6 v3
+RUN if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
+    if [ -d /etc/services.d ]; then chmod -R 755 /etc/services.d; fi && \
+    if [ -f /entrypoint.sh ]; then chmod 755 /entrypoint.sh; fi
+
+# Modules
+ARG MODULES="00-banner.sh 01-custom_script.sh 00-local_mounts.sh 00-smb_mounts.sh"
+
+# Automatic modules download
+RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
+    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
+    && apt-get update && apt-get install -yqq --no-install-recommends ca-certificates || apk add --no-cache ca-certificates >/dev/null || true \
+    && mkdir -p /etc/cont-init.d \
+    && for scripts in $MODULES; do echo "$scripts" && curl -f -L -s -S "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/$scripts" -o /etc/cont-init.d/"$scripts" && [ "$(sed -n '/\/bin/p;q' /etc/cont-init.d/"$scripts")" != "" ] || (echo "script failed to install $scripts" && exit 1); done \
+    && chmod -R 755 /etc/cont-init.d
+
+# Manual apps
+ENV PACKAGES="bind-tools \
+    nginx"
+
+# Automatic apps & bashio
+# hadolint ignore=SC2015
+RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
+    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
+    && curl -f -L -s -S "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/automatic_packages.sh" --output /automatic_packages.sh \
+    && chmod 777 /automatic_packages.sh \
+    && eval /./automatic_packages.sh "${PACKAGES:-}" \
+    && rm /automatic_packages.sh
+
+################
+# 4 Entrypoint #
+################
 
 VOLUME [ "/data" ]
 WORKDIR /
 RUN chmod 777 /entrypoint.sh
 ENTRYPOINT [ "/usr/bin/env" ]
-CMD [ "/entrypoint.sh" ] 
+CMD [ "/entrypoint.sh" ]
 
+############
+# 5 Labels #
+############
 
-### LABELS
 ARG BUILD_ARCH
 ARG BUILD_DATE
 ARG BUILD_DESCRIPTION
@@ -69,3 +102,16 @@ LABEL \
     org.opencontainers.image.created=${BUILD_DATE} \
     org.opencontainers.image.revision=${BUILD_REF} \
     org.opencontainers.image.version=${BUILD_VERSION}
+
+#################
+# 6 Healthcheck #
+#################
+
+ENV HEALTH_PORT="8080" \
+    HEALTH_URL=""
+HEALTHCHECK \
+    --interval=5s \
+    --retries=5 \
+    --start-period=30s \
+    --timeout=25s \
+    CMD curl --fail "http://127.0.0.1:${HEALTH_PORT}${HEALTH_URL}" &>/dev/null || exit 1

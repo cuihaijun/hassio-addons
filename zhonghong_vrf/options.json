@@ -1,7 +1,7 @@
 {
-  "broker": "192.168.1.3",
+  "broker": "192.168.123.200",
   "port": 1883,
-  "username": "hassos",
-  "password": "hassos",
-  "gateway": "192.168.1.251"
+  "username": "mqtt",
+  "password": "mqtt",
+  "gateway": "192.168.123.251"
 }
