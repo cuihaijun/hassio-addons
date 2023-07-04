@@ -38,8 +38,8 @@
   },
   "slug": "ddns-go",
   "startup": "services",
-  "upstream": "v5.3.6",
-  "url": "https://github.com/cuihaijun/hassio-addons",
-  "version": "v5.3.6",
+  "upstream": "5.3.6",
+  "url": "https://github.com/alexbelgium/hassio-addons",
+  "version": "5.3.6",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:9876]"
 }
