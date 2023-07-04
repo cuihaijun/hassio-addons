@@ -18,7 +18,7 @@
   ],
   "name": "ddns-go",
   "boot": "auto",
-  "image": "jeessy/ddns-go/",
+  "image": "jeessy/ddns-go",
   "options": {
     "ssl": false,
     "certfile": "fullchain.pem",
