@@ -18,7 +18,7 @@
   ],
   "name": "ddns-go",
   "boot": "auto",
-  "image": "jeessy/ddns-go",
+  "image": "jeessy/ddns-go/latest",
   "options": {
     "ssl": false,
     "certfile": "fullchain.pem",
@@ -38,8 +38,8 @@
   },
   "slug": "ddns-go",
   "startup": "services",
-  "upstream": "v4.2.0",
-  "url": "https://github.com/alexbelgium/hassio-addons",
-  "version": "v4.2.0",
+  "upstream": "v5.3.6",
+  "url": "https://github.com/cuihaijun/hassio-addons",
+  "version": "v5.3.6",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:9876]"
 }
