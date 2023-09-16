@@ -20,4 +20,4 @@ options:
   homebridge_workdir: "/config/homebridge"
 schema:
   homebridge_workdir: str
-image: cuihaijun/{arch}-addon-homebridge
+image: homebridge/homebridge:latest
