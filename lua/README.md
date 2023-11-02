@@ -1,5 +1,6 @@
 # Home Assistant Add-on: lua
 
-通过lua可以通过公网4G设备访问局域网mqtt。
+可以通过访问局域网中的homeassistant。
+
 
 
