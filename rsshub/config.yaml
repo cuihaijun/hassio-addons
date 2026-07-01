@@ -7,7 +7,7 @@ url: https://github.com/cuihaijun/hassio-addons
 arch:
   - amd64
   - aarch64
-image: ghcr.io/cuihaijun/{arch}-rsshub-addon
+image: cuihaijun/{arch}-rsshub-addon
 startup: services
 boot: auto
 init: false
