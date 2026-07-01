@@ -1,6 +1,6 @@
 ---
 name: RSSHub
-version: 2026.7.4
+version: 2026.7.5
 slug: rsshub
 description: Generate a RSS/Atom/JSON feed from anything
 url: https://github.com/cuihaijun/hassio-addons
@@ -22,92 +22,16 @@ ports_description:
   1200/tcp: "Web Interface (HTTP or HTTPS when ssl is enabled)"
 watchdog: "tcp://[HOST]:[PORT:1200]"
 map:
-  - addon_config:rw
-  - all_addon_configs:rw
+  - config:rw
   - share:rw
   - ssl:rw
 options:
-  bind_address: 0.0.0.0:1200
+  bind_address: "0.0.0.0:1200"
   certfile: fullchain.pem
   keyfile: privkey.pem
   ssl: false
-  # RSSHub 环境变量配置
-  environment_variables:
-    NODE_ENV: production
-    CACHE_TYPE: memory
-    CACHE_EXPIRE: 3600
-    CACHE_CONTENT_EXPIRE: 3600
-    DISALLOW_ROBOT: false
-    ENABLE_CACHE_MANAGER: true
-    REQUEST_RETRY: 3
-    REQUEST_TIMEOUT: 30000
 schema:
   bind_address: str
   certfile: str
   keyfile: str
   ssl: bool
-  request_retry: int?
-  request_timeout: int?
-  cache_expire: int?
-  cache_content_expire: int?
-  logger_level: list(emerg|alert|crit|error|warning|notice|info|debug)?
-  # RSSHub 环境变量配置
-  environment_variables:
-    optional: true
-    type:
-      NODE_ENV:
-        optional: true
-        type: str
-        default: "production"
-      CACHE_TYPE:
-        optional: true
-        type: str
-        default: "memory"
-      CACHE_EXPIRE:
-        optional: true
-        type: int
-        default: 3600
-      CACHE_CONTENT_EXPIRE:
-        optional: true
-        type: int
-        default: 3600
-      GITHUB_ACCESS_TOKEN:
-        optional: true
-        type: str
-      TWITTER_USERNAME:
-        optional: true
-        type: str
-      TWITTER_PASSWORD:
-        optional: true
-        type: str
-      TWITTER_AUTH_TOKEN:
-        optional: true
-        type: str
-      YOUTUBE_KEY:
-        optional: true
-        type: str
-      WECHAT_MP_COOKIE:
-        optional: true
-        type: str
-      WEIBO_COOKIES:
-        optional: true
-        type: str
-      BILIBILI_COOKIE_你的UID:
-        optional: true
-        type: str
-      DISALLOW_ROBOT:
-        optional: true
-        type: bool
-        default: false
-      ENABLE_CACHE_MANAGER:
-        optional: true
-        type: bool
-        default: true
-      REQUEST_RETRY:
-        optional: true
-        type: int
-        default: 3
-      REQUEST_TIMEOUT:
-        optional: true
-        type: int
-        default: 30000
