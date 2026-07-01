@@ -45,6 +45,7 @@ jobs:
         run: |
           VERSION=$(grep '^version:' rsshub/config.yaml | awk '{print $2}' | tr -d '"')
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
 
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -55,7 +56,7 @@ jobs:
           push: true
           build-args: |
             BUILD_ARCH=${{ matrix.arch }}
-            BUILD_DATE=${{ fromJSON(steps.version.outputs.version) }}
+            BUILD_DATE=${{ steps.version.outputs.date }}
             BUILD_DESCRIPTION=RSSHub Add-on for Home Assistant
             BUILD_NAME=RSSHub
             BUILD_REF=${{ github.sha }}
