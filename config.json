@@ -1,0 +1,36 @@
+{
+  "name": "RSSHub",
+  "version": "1.0.0",
+  "slug": "rsshub",
+  "description": "轻量级RSS聚合器，将任意网站转为RSS订阅源（国内优化版）",
+  "url": "https://github.com/cuihaijun/hassio-addons",
+  "arch": ["amd64"],
+  "startup": "services",
+  "boot": "auto",
+  "init": false,
+  "ingress": false,
+  "host_network": false,
+  "ports": {
+    "1200/tcp": 1200
+  },
+  "ports_description": {
+    "1200/tcp": "RSSHub Web服务端口"
+  },
+  "options": {
+    "port": 1200
+  },
+  "schema": {
+    "port": "int(1,65535)"
+  },
+  "image": "local/rsshub-{arch}",
+  "build": true,
+  "auto_update": false,
+  "homeassistant": "2024.1.0",
+  "panel_icon": "mdi:rss",
+  "panel_title": "RSSHub",
+  "map": [
+    "config:rw",
+    "share:rw",
+    "ssl:rw"
+  ]
+}
