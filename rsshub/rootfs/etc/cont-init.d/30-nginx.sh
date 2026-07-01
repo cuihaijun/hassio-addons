@@ -29,6 +29,8 @@ fi
 
 [[ "${ingress_entry}" =~ ^/(.*)$ ]] && ingress_entry="${BASH_REMATCH[1]}"
 
+mkdir -p /etc/nginx/servers
+
 bashio::var.json \
   bind_host "${bind_host}" \
   bind_port "^${bind_port}" \
