@@ -1,6 +1,6 @@
 ---
 name: RSSHub
-version: 1.0.0
+version: "latest"
 slug: rsshub
 description: Generate a RSS/Atom/JSON feed from anything
 url: https://github.com/cuihaijun/hassio-addons
