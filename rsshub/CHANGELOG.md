@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026.7.4
+
+- Guarded S6 finish scripts so controlled restarts do not call a missing `/var/run/s6/services`.
+
 ## 2026.7.3
 
 - Fixed duplicate Nginx `daemon` directive.
