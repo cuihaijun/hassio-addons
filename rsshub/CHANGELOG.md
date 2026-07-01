@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026.7.3
+
+- Fixed duplicate Nginx `daemon` directive.
+- Replaced `finish` scripts with shell scripts that do not depend on missing `s6-test`.
+
 ## 2026.7.2
 
 - Fixed startup failure when `/etc/nginx/servers` did not exist before generating `rsshub.conf`.
