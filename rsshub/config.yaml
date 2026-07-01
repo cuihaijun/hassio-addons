@@ -7,16 +7,12 @@ url: https://github.com/cuihaijun/hassio-addons
 arch:
   - amd64
   - aarch64
-image: cuihaijun/{arch}-rsshub-addon
+image: diygod/rsshub
 startup: services
 boot: auto
 init: false
-ingress: true
 map:
-  - all_addon_configs:rw
-  - config:rw
-  - share:rw
-  - ssl:rw
+  - addon_config:rw
 homeassistant: 2024.1.0
 panel_icon: mdi:newspaper-variant-multiple
 panel_title: RSSHub
