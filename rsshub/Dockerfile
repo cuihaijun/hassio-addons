@@ -1,4 +1,4 @@
-# 直接使用官方 RSSHub 镜像
+# 基于官方 RSSHub 镜像
 FROM diygod/rsshub:latest
 
 ARG BUILD_ARCH
@@ -31,4 +31,9 @@ EXPOSE 1200
 ENV NODE_ENV=production
 ENV PORT=1200
 
-CMD ["npm", "start"]
+# 复制启动脚本
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
+
+# 使用自定义启动脚本
+CMD ["/run.sh"]
