@@ -18,12 +18,18 @@ panel_title: RSSHub
 homeassistant: 2024.1.0
 host_network: true
 ports:
-  1200/tcp: 5000
+  1200/tcp: 1200
 ports_description:
-  1200/tcp: "Web Interface"
+  1200/tcp: "RSSHub Web Interface"
 watchdog: "tcp://[HOST]:[PORT:1200]"
 map:
   - addon_config:rw
+options:
+  request_retry: 3
+  request_timeout: 3000
+  cache_expire: 3600
+  cache_content_expire: 3600
+  logger_level: info
 schema:
   request_retry: int?
   request_timeout: int?
