@@ -1,39 +1,15 @@
-# 基于官方 RSSHub 镜像
+ARG BUILD_FROM
 FROM diygod/rsshub:latest
 
-ARG BUILD_ARCH
-ARG BUILD_DATE
-ARG BUILD_DESCRIPTION="RSSHub Add-on for Home Assistant"
-ARG BUILD_NAME="RSSHub"
-ARG BUILD_REF
-ARG BUILD_REPOSITORY
-ARG BUILD_VERSION
+# Copy root filesystem
+COPY rootfs /
 
-# 添加 HA App System 标签
-LABEL \
-  io.hass.name="${BUILD_NAME}" \
-  io.hass.description="${BUILD_DESCRIPTION}" \
-  io.hass.arch="${BUILD_ARCH}" \
-  io.hass.type="app" \
-  io.hass.version="${BUILD_VERSION}" \
-  maintainer="cuihaijun" \
-  org.opencontainers.image.title="${BUILD_NAME}" \
-  org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
-  org.opencontainers.image.vendor="cuihaijun" \
-  org.opencontainers.image.licenses="MIT" \
-  org.opencontainers.image.created="${BUILD_DATE}" \
-  org.opencontainers.image.revision="${BUILD_REF}" \
-  org.opencontainers.image.version="${BUILD_VERSION}" \
-  org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}"
+# Set working directory
+WORKDIR /app
 
+# Expose RSSHub port
 EXPOSE 1200
 
-ENV NODE_ENV=production
-ENV PORT=1200
-
-# 复制启动脚本
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
-
-# 使用自定义启动脚本
-CMD ["/run.sh"]
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD curl -f http://localhost:1200/ || exit 1

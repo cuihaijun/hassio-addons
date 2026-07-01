@@ -1,0 +1,11 @@
+#!/usr/bin/with-contenv bashio
+
+# Initialize RSSHub service
+bashio::log.info "Initializing RSSHub..."
+
+# Set environment variables
+export PORT=1200
+export HOSTNAME=0.0.0.0
+
+bashio::log.info "RSSHub initialized successfully"
+exit 0

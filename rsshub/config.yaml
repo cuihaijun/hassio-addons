@@ -12,16 +12,18 @@ startup: services
 boot: auto
 init: false
 ingress: true
-map:
-  - addon_config:rw
-homeassistant: 2024.1.0
+ingress_port: 1200
 panel_icon: mdi:newspaper-variant-multiple
 panel_title: RSSHub
+homeassistant: 2024.1.0
+host_network: true
 ports:
   1200/tcp: 5000
 ports_description:
   1200/tcp: "Web Interface"
 watchdog: "tcp://[HOST]:[PORT:1200]"
+map:
+  - addon_config:rw
 schema:
   request_retry: int?
   request_timeout: int?

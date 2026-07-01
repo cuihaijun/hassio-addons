@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bashio
+
+# Start RSSHub service
+bashio::log.info "Starting RSSHub on port 1200..."
+
+exec node /app/lib/index.js
