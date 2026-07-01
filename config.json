@@ -28,6 +28,9 @@
   "homeassistant": "2024.1.0",
   "panel_icon": "mdi:rss",
   "panel_title": "RSSHub",
+  "hassio_api": false,
+  "hassio_role": "default",
+  "apparmor": true,
   "map": [
     "share:ro"
   ]

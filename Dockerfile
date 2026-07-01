@@ -1,3 +1,10 @@
+# RSSHub Home Assistant Add-on
+# https://github.com/cuihaijun/hassio-addons
+
+LABEL io.hass.version="1.0.0" \
+      io.hass.type="addon" \
+      io.hass.arch="amd64"
+
 # 多阶段构建：第一阶段构建 RSSHub
 FROM node:20-alpine AS builder
 
