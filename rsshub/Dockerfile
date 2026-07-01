@@ -30,7 +30,6 @@ EXPOSE 1200
 
 ENV NODE_ENV=production
 ENV PORT=1200
-ENV TRUST_PROXY=true
 
 # 复制启动脚本
 COPY run.sh /run.sh
