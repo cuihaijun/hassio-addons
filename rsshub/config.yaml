@@ -1,6 +1,6 @@
 ---
 name: RSSHub
-version: 2026.7.7
+version: 2026.7.8
 slug: rsshub
 description: Generate a RSS/Atom/JSON feed from anything
 url: https://github.com/cuihaijun/hassio-addons
@@ -46,8 +46,8 @@ options:
   youtube_key: ""
   wechat_mp_cookie: ""
   weibo_cookies: ""
-  bilibili_cookie: "buvid3=6C5AA562-FEC6-D217-B129-8A140B3206DD53132infoc; b_nut=1782912553; _uuid=28C47DA5-110A6-6A18-B4F8-9398ED8102DD754242infoc; home_feed_column=5; bmg_af_switch=1; bmg_src_def_domain=i1.hdslb.com; bmg_af_sc={\"none\":{\"on\":1,\"def\":\"i1.hdslb.com\"},\"sgp\":{\"on\":1,\"def\":\"i1-sgp.hdslb.com\"}}; bili_ticket=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiaWxpYmlsaSIsImV4cCI6MTc4MzE3MTY5NywiaWF0IjoxNzgyOTEyNDk3LCJjdHkiOiJiaWxpYmlsaSJ9.GwKw; bili_ticket_expires=1783171697; buvid_fp=9b70ff075f9655b9558519f1d00d5f90; browser_resolution=1614-895; buvid4=58486BC6-3D6C-D7DA-C987-EB49CB020C8F05895-026050316-tWzjsvPMlSMJI6P0TG6HBZsC7og+20/EN5YJ43JqACtAYXlhIfmXrh2EWOLsOZxU; bili_jct=673e13513de23ca0ba42c2339580b7aa; DedeUserID=481500936; DedeUserID__ckMd5=e987475a97913ed2; sid=6oeretp0; theme-tip-show=SHOWED; theme-avatar-tip-show=SHOWED; b_lsid=637E3785_19F1DED4592"
-  zhihu_cookie: "_zap=607e7cfb-a96f-4786-825e-874f5d6ce5bc; _xsrf=566336e4-bde9-4751-be40-a5fb2c326a64; d_c0=F6XZS1CLhxyPTrWbtAexh9xagRik4lcEHYs=|1782912554; __snaker__id=URIM1y3xWHT4w5XE; gdxidpyhxdE=1yb7oK4mwlgZOlspvDCrypLAE4OW6TV0r7A73gjckequ8JxlDWeS52uTnYx%2Bxl5DM04OmP3zVQJSvfiYGi3eikPEYyIy53KEUjEpz2ysp9gPerNknKiVjApatPqxluRe7tgneNgPuVoyq9Y%5C%2BMqbvUavbAXmaLXkXaJaUIs%2FnOqgP%5CaB%3A1782914523905; DATE=1780719867604; cmci9xde=U2FsdGVkX19kMeH0aSM3lHCGEY3ZlvbwLtcvUJX5k+gO0Lopn6uTyFZ2IAyTucfByE18hjxJ/U6IpTuPJobW6Q==; pmck9xge=U2FsdGVkX1+9H5Kk0/ktiQnt4aKtMhgqeQt8WIoLBzw=; crystal=U2FsdGVkX19Ue5BGm7EUXdYKYlkjgMHNayRIb8WLk1TSxRxZuB3AXCjTsbHSpjUMk/Xb2J9Kp6h1Bx0VRJxeW1//ieCCxstnBGarjklu36uJhrSlFq5xuRGHrfieRuBV++/CDnpIx6mveqPPZPMUCTUPWwC0MgeKlfXo9hFEgKoSzfcjfDLkPGHzPU1KMsBfsyZOV1QcUjDXOIgrt0364w3WJkHHeNc3UcT2/4VsduIzSGfCT/Qvrp8rNTVaSd77; assva6=U2FsdGVkX1+4Nx19pncjqOJNHbrylQ+1c/Ny+/PzICI=; assva5=U2FsdGVkX188IjwP0pS6vmeJBi5rOIRse71Ay9i10DXiVVcbkMOcYxt0BDtt/RI2YEWg0izEaW2Bk7AfNOAFeg==; vmce9xdq=U2FsdGVkX1+4NtOQNQhGuQAe7T90374tpwjtlhfe0LVlFv98YuR+qtHXxBnlSSXmOHhcKMPeOp/uV8QYhewjRo/nJh0C37IKMSYUkU3hoFenqvpfYL/rNXLR/2lVNnrAQUmtRxq1H877Cz2ToD1E7SXOAbEICIluwPa4P+U3bPk=; q_c1=23fde46bb22744f2942ea660d8afb8cc|1782913707000|1782913707000; BEC=1eb0fb512bb6053f407f0a7771f545e9"
+  bilibili_cookie: ""
+  zhihu_cookie: ""
 schema:
   bind_address: str
   certfile: str
