@@ -46,6 +46,28 @@
 - 镜像标签：local/rsshub-{arch}
 - 构建方式：本地 Dockerfile 构建
 
+## 故障排查
+
+### 构建失败
+- 检查网络连接，确认可以访问 GitHub 和 npm 镜像
+- 查看 Supervisor 日志：`docker logs hassio_supervisor`
+- 如果 GitHub 克隆失败，Dockerfile 会自动尝试通过 ghproxy.net 代理
+
+### 端口冲突
+- 修改 Add-on 配置中的端口（默认 1200）
+- 检查端口占用：`netstat -tlnp | grep 1200`
+
+### 服务无法启动
+- 查看 Add-on 日志
+- 确认内存充足（建议 ≥512MB）
+- 检查 Dockerfile 构建是否成功
+
+## 如何更新
+
+1. 停止 Add-on
+2. 点击 **"Rebuild"** 重新构建（会拉取最新 RSSHub 源码）
+3. 启动 Add-on
+
 ## 许可证
 
 本项目遵循 RSSHub 原始许可证（MIT）。

@@ -18,7 +18,8 @@ RUN git clone --depth 1 https://github.com/DIYgod/RSSHub.git . || \
 RUN npm config set registry https://registry.npmmirror.com
 
 # 安装依赖并构建（不包含 Puppeteer）
-RUN npm ci --omit=dev && \
+# 优先使用 npm ci，失败则回退到 npm install
+RUN (npm ci --omit=dev || npm install --omit=dev) && \
     npm run build
 
 # 第二阶段：生产运行环境
@@ -27,10 +28,20 @@ FROM node:20-alpine
 # 更换 Alpine 软件源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 
+# 创建非 root 用户
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
 WORKDIR /app
 
 # 从 builder 阶段复制构建好的文件
 COPY --from=builder /app /app
+
+# 设置目录权限
+RUN chown -R nodejs:nodejs /app
+
+# 切换到非 root 用户
+USER nodejs
 
 # 设置环境变量
 ENV NODE_ENV=production
