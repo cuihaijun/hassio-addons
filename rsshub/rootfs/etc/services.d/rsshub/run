@@ -1,0 +1,42 @@
+#!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
+set -e
+
+cd /app
+
+export NO_LOGFILES=true
+export DISALLOW_ROBOT=false
+export TITLE_LENGTH_LIMIT=255
+export PORT=1201
+export LISTEN_INADDR_ANY=false
+export DISABLE_IPV6=true
+
+if bashio::config.has_value 'request_retry'; then
+  export REQUEST_RETRY
+  REQUEST_RETRY="$(bashio::config 'request_retry')"
+fi
+if bashio::config.has_value 'request_timeout'; then
+  export REQUEST_TIMEOUT
+  REQUEST_TIMEOUT="$(bashio::config 'request_timeout')"
+fi
+if bashio::config.has_value 'cache_expire'; then
+  export CACHE_EXPIRE
+  CACHE_EXPIRE="$(bashio::config 'cache_expire')"
+fi
+if bashio::config.has_value 'cache_content_expire'; then
+  export CACHE_CONTENT_EXPIRE
+  CACHE_CONTENT_EXPIRE="$(bashio::config 'cache_content_expire')"
+fi
+if bashio::config.has_value 'logger_level'; then
+  export LOGGER_LEVEL
+  LOGGER_LEVEL="$(bashio::config 'logger_level')"
+fi
+
+ROUTE_FILE="/addon_configs/rsshub/routes_env.sh"
+if [[ -f "${ROUTE_FILE}" ]]; then
+  # shellcheck disable=SC1090
+  source "${ROUTE_FILE}"
+fi
+
+bashio::log.info "Starting RSSHub backend on 127.0.0.1:1201"
+exec npm run start

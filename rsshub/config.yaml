@@ -1,36 +1,41 @@
 ---
 name: RSSHub
-version: "latest"
+version: 2026.7.1
 slug: rsshub
 description: Generate a RSS/Atom/JSON feed from anything
 url: https://github.com/cuihaijun/hassio-addons
 arch:
   - amd64
   - aarch64
-image: diygod/rsshub
 startup: services
 boot: auto
 init: false
 ingress: true
-ingress_port: 1200
+ingress_port: 8099
+ingress_stream: true
 panel_icon: mdi:newspaper-variant-multiple
 panel_title: RSSHub
 homeassistant: 2024.1.0
-host_network: true
 ports:
   1200/tcp: 1200
 ports_description:
-  1200/tcp: "RSSHub Web Interface"
+  1200/tcp: "Web Interface (HTTP or HTTPS when ssl is enabled)"
 watchdog: "tcp://[HOST]:[PORT:1200]"
 map:
   - addon_config:rw
+  - all_addon_configs:rw
+  - share:rw
+  - ssl:rw
 options:
-  request_retry: 3
-  request_timeout: 3000
-  cache_expire: 3600
-  cache_content_expire: 3600
-  logger_level: info
+  bind_address: 0.0.0.0:1200
+  certfile: fullchain.pem
+  keyfile: privkey.pem
+  ssl: false
 schema:
+  bind_address: str
+  certfile: str
+  keyfile: str
+  ssl: bool
   request_retry: int?
   request_timeout: int?
   cache_expire: int?

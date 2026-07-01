@@ -1,5 +1,0 @@
-#!/usr/bin/with-contenv bashio
-
-# Post-initialization hook (optional)
-bashio::log.debug "RSSHub post-init complete"
-exit 0
