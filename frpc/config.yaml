@@ -1,0 +1,61 @@
+---
+name: FRP Client
+version: 2026.7.1
+slug: frpc
+description: Expose local Home Assistant services through an frp server
+url: https://github.com/cuihaijun/hassio-addons/tree/master/frpc
+arch:
+  - amd64
+  - aarch64
+  - armhf
+  - armv7
+startup: services
+boot: auto
+init: false
+panel_icon: mdi:transit-connection-variant
+panel_title: FRP Client
+homeassistant: 2024.1.0
+ports:
+  7400/tcp: null
+ports_description:
+  7400/tcp: "Optional frpc admin dashboard"
+map:
+  - config:rw
+options:
+  frp_server: ""
+  frp_server_port: 7000
+  frp_token: ""
+  local_host: homeassistant
+  local_port: 8123
+  tunnel_type: tcp
+  proxy_name: homeassistant
+  http_domain: ""
+  http_subdomain_host: ""
+  tcp_remote_port: 6000
+  transport_protocol: tcp
+  tls_enable: true
+  log_level: info
+  admin_enable: false
+  admin_addr: 0.0.0.0
+  admin_port: 7400
+  admin_user: admin
+  admin_password: ""
+schema:
+  frp_server: str
+  frp_server_port: port
+  frp_token: password
+  local_host: str
+  local_port: port
+  tunnel_type: list(tcp|http)
+  proxy_name: str
+  http_domain: str?
+  http_subdomain_host: str?
+  tcp_remote_port: port?
+  transport_protocol: list(tcp|kcp|quic|websocket|wss)
+  tls_enable: bool
+  log_level: list(trace|debug|info|warn|error)
+  admin_enable: bool
+  admin_addr: str
+  admin_port: port
+  admin_user: str
+  admin_password: password?

@@ -7,6 +7,7 @@
 | Add-on | 描述 |
 |--------|------|
 | [RSSHub](rsshub/) | 轻量级 RSS 聚合器，将任意网站转为 RSS 订阅源（HA App System）<br>**新增**: 支持通过 UI 配置环境变量，启用更多平台集成（GitHub、Twitter、YouTube、微信、微博、Bilibili 等） |
+| [FRP Client](frpc/) | frpc 内网穿透客户端（HA App System），连接到你自己的 frps 服务器，支持 TCP/HTTP 隧道 |
 
 ## 安装方法
 
