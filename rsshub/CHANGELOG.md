@@ -1,10 +1,5 @@
 # Changelog
 
-## 2026.7.8
-
-- Cleared Zhihu and Bilibili cookie defaults from add-on options.
-- Kept `zhihu_cookie` and `bilibili_cookie` as empty user-configurable fields.
-
 ## 2026.7.4
 
 - Guarded S6 finish scripts so controlled restarts do not call a missing `/var/run/s6/services`.
@@ -26,3 +21,4 @@
 - Added optional direct HTTPS on port 1200 using `/ssl` certificates.
 - Fixed RSSHub backend binding to an internal localhost port behind Nginx.
 - Removed the previous inactive S6-overlay rootfs layout and redundant top-level startup script.
+
