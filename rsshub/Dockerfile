@@ -1,5 +1,5 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/base:latest
-FROM ghcr.io/diygod/rsshub:latest AS org
+FROM diygod/rsshub:latest AS org
 
 FROM $BUILD_FROM
 
