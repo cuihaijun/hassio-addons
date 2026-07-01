@@ -7,7 +7,7 @@
   "arch": ["amd64"],
   "startup": "services",
   "boot": "auto",
-  "init": false,
+  "init": true,
   "ingress": false,
   "host_network": false,
   "ports": {
@@ -29,8 +29,6 @@
   "panel_icon": "mdi:rss",
   "panel_title": "RSSHub",
   "map": [
-    "config:rw",
-    "share:rw",
-    "ssl:rw"
+    "share:ro"
   ]
 }
