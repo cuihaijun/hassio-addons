@@ -11,6 +11,7 @@ image: diygod/rsshub
 startup: services
 boot: auto
 init: false
+ingress: true
 map:
   - addon_config:rw
 homeassistant: 2024.1.0
