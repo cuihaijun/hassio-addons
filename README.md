@@ -6,7 +6,7 @@
 
 | Add-on | 描述 |
 |--------|------|
-| [RSSHub](rsshub-addon/) | 轻量级 RSS 聚合器，将任意网站转为 RSS 订阅源（国内优化版） |
+| [RSSHub](rsshub/) | 轻量级 RSS 聚合器，将任意网站转为 RSS 订阅源（HA App System） |
 
 ## 安装方法
 

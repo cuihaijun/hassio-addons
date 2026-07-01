@@ -1,0 +1,70 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant App: RSSHub
+# ==============================================================================
+
+if bashio::supervisor.ping; then
+    bashio::log.blue \
+        '-----------------------------------------------------------'
+    bashio::log.blue " App: $(bashio::addon.name)"
+    bashio::log.blue " $(bashio::addon.description)"
+    bashio::log.blue \
+        '-----------------------------------------------------------'
+    bashio::log.blue " App version: $(bashio::addon.version)"
+    bashio::log.blue " System: $(bashio::info.operating_system)" \
+        " ($(bashio::info.arch) / $(bashio::info.machine))"
+    bashio::log.blue \
+        '-----------------------------------------------------------'
+fi
+
+# ==============================================================================
+cd /app
+
+bashio::log.info 'RSSHub Starting...'
+bashio::log.info 'Configuration:'
+
+export NO_LOGFILES=true
+export DISALLOW_ROBOT=false
+export TITLE_LENGTH_LIMIT=255
+
+if bashio::config.has_value 'request_retry'; then
+    export REQUEST_RETRY=$(bashio::config 'request_retry')
+    bashio::log.blue " Request retry: $(bashio::config 'request_retry')"
+fi
+
+if bashio::config.has_value 'request_timeout'; then
+    export REQUEST_TIMEOUT=$(bashio::config 'request_timeout')
+    bashio::log.blue " Request timeout: $(bashio::config 'request_timeout')"
+fi
+
+if bashio::config.has_value 'cache_expire'; then
+    export CACHE_EXPIRE=$(bashio::config 'cache_expire')
+    bashio::log.blue " Cache expire: $(bashio::config 'cache_expire')"
+fi
+
+if bashio::config.has_value 'cache_content_expire'; then
+    export CACHE_CONTENT_EXPIRE=$(bashio::config 'cache_content_expire')
+    bashio::log.blue " Cache content expire: $(bashio::config 'cache_content_expire')"
+fi
+
+if bashio::config.has_value 'logger_level'; then
+    export LOGGER_LEVEL=$(bashio::config 'logger_level')
+    bashio::log.blue " Logger level: $(bashio::config 'logger_level')"
+fi
+
+ROUTE_FILE="/addon_configs/rsshub/routes_env.sh"
+if [ -f $ROUTE_FILE ]; then
+    bashio::log.blue " Adding route specific configurations:"
+    bashio::log.blue " ${ROUTE_FILE}"
+    source $ROUTE_FILE
+fi
+
+bashio::log.blue "RSSHub port mapping (local:external): $(bashio::addon.network), use external port for access."
+bashio::log.info 'RSSHub Start'
+
+# ==============================================================================
+npm run start
+
+# ==============================================================================
+bashio::log.info 'RSSHub Stop'
+bashio::exit.ok
