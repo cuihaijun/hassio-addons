@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026.7.2
+
+- Fixed startup failure when `/etc/nginx/servers` did not exist before generating `rsshub.conf`.
+
 ## 2026.7.1
 
 - Rebuilt the add-on around a Home Assistant base image and the upstream RSSHub app files.
