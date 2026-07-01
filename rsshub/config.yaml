@@ -1,6 +1,6 @@
 ---
 name: RSSHub
-version: 2026.7.5
+version: 2026.7.6
 slug: rsshub
 description: Generate a RSS/Atom/JSON feed from anything
 url: https://github.com/cuihaijun/hassio-addons
@@ -30,8 +30,24 @@ options:
   certfile: fullchain.pem
   keyfile: privkey.pem
   ssl: false
+  cache_type: memory
+  cache_expire: 3600
+  cache_content_expire: 3600
+  disallow_robot: false
+  enable_cache_manager: true
+  request_retry: 3
+  request_timeout: 30000
+  logger_level: info
 schema:
   bind_address: str
   certfile: str
   keyfile: str
   ssl: bool
+  cache_type: str
+  cache_expire: int
+  cache_content_expire: int
+  disallow_robot: bool
+  enable_cache_manager: bool
+  request_retry: int
+  request_timeout: int
+  logger_level: list(emerg|alert|crit|error|warning|notice|info|debug)?
