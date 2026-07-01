@@ -83,4 +83,11 @@ if [[ -n "${BILIBILI_COOKIE}" ]]; then
   bashio::log.info "  BILIBILI_COOKIE: configured"
 fi
 
+# Zhihu
+ZHIHU_COOKIE="$(bashio::config 'zhihu_cookie')"
+if [[ -n "${ZHIHU_COOKIE}" ]]; then
+  export ZHIHU_COOKIES="${ZHIHU_COOKIE}"
+  bashio::log.info "  ZHIHU_COOKIES: configured"
+fi
+
 bashio::log.info "RSSHub environment initialization complete."

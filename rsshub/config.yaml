@@ -47,6 +47,7 @@ options:
   wechat_mp_cookie: ""
   weibo_cookies: ""
   bilibili_cookie: ""
+  zhihu_cookie: ""
 schema:
   bind_address: str
   certfile: str
@@ -69,3 +70,4 @@ schema:
   wechat_mp_cookie: str?
   weibo_cookies: str?
   bilibili_cookie: str?
+  zhihu_cookie: str?
