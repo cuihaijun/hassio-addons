@@ -1,5 +1,5 @@
 server {
-    listen {{ .interface }}:{{ .ingress_port }} default_server;
+    listen {{ .ingress_port }} default_server;
 
     include /etc/nginx/includes/server_params.conf;
 
