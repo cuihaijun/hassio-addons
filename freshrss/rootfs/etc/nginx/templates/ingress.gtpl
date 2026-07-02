@@ -11,7 +11,6 @@ server {
     add_header X-Frame-Options "SAMEORIGIN";
     add_header Content-Security-Policy "frame-ancestors *";
 
-    root /usr/share/freshrss/p;
     index index.php index.html;
 
     location / {
