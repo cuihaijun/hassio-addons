@@ -13,7 +13,7 @@ bashio::var.json \
         -out /etc/php83/php-fpm.d/ingress.conf
 
 # Generate direct access configuration, if enabled.
-if bashio::var.has_value "$(bashio::addon.port 80)"; then
+if bashio::var.has_value "$(bashio::app.port 80)"; then
     bashio::var.json \
         name "www" \
         port "^9001" \

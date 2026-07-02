@@ -76,6 +76,68 @@ environment_variables:
 
 详细文档请查看: [RSSHub README](rsshub/README.md)
 
+## FreshRSS 侧边栏访问
+
+FreshRSS Add-on 支持通过 Home Assistant 侧边栏打开网页界面。
+
+### 功能说明
+
+- `ingress: true`：启用 Home Assistant 侧边栏入口
+- `panel_title: FreshRSS`：侧边栏显示名称
+- `panel_icon: mdi:rss-box`：侧边栏图标
+- `ingress_port: 8099`：容器内部 ingress 监听端口，不占用宿主机端口
+- `80/tcp: 7077`：直接访问 FreshRSS 网页界面的宿主机端口
+
+### 配置建议
+
+使用侧边栏访问时，`base_url` 可以保持为空：
+
+```yaml
+base_url: ""
+ssl: false
+```
+
+如果通过固定外部域名或直连端口访问 FreshRSS，再按实际访问地址配置 `base_url`。
+
+详细文档请查看: [FreshRSS DOCS](freshrss/DOCS.md)
+
+## FRP Client 配置
+
+FRP Client Add-on 用于连接自有 `frps` 服务器，将 Home Assistant 或其他本地服务通过隧道暴露出去。
+
+### 常用配置
+
+```yaml
+frp_server: "example.com"
+frp_server_port: 7000
+frp_token: "change-me"
+local_host: homeassistant
+local_port: 8123
+tunnel_type: tcp
+proxy_name: homeassistant
+tcp_remote_port: 6000
+transport_protocol: tcp
+tls_enable: true
+```
+
+### 兼容选项
+
+如果服务端启用了心跳或新工作连接鉴权，开启匹配的客户端鉴权范围：
+
+```yaml
+auth_heartbeats: true
+auth_new_work_conns: true
+```
+
+管理面板默认不启用；需要时设置：
+
+```yaml
+admin_enable: true
+admin_port: 7400
+```
+
+详细文档请查看: [FRP Client README](frpc/README.md)
+
 ## 注意事项
 
 - 所有 Add-on 均针对国内网络环境优化

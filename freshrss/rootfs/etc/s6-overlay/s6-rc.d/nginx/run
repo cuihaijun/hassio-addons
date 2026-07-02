@@ -7,7 +7,7 @@
 
 # Wait for PHP-FPM to become available
 bashio::net.wait_for 9002 localhost 900
-if bashio::var.has_value "$(bashio::addon.port 80)"; then
+if bashio::var.has_value "$(bashio::app.port 80)"; then
     bashio::net.wait_for 9001 localhost 900
 fi
 

@@ -52,3 +52,10 @@ if ! bashio::fs.directory_exists "/config/extensions"; then
         chown -R nginx:nginx /config/extensions
     fi
 fi
+
+placeholder_user_dir="/data/freshrss/users/_"
+if bashio::fs.directory_exists "${placeholder_user_dir}" \
+    && ! find "${placeholder_user_dir}" -mindepth 1 ! -name '.gitignore' ! -name 'index.html' | grep -q .; then
+    bashio::log.debug "Removing empty FreshRSS placeholder user directory: ${placeholder_user_dir}"
+    rm -rf "${placeholder_user_dir}"
+fi

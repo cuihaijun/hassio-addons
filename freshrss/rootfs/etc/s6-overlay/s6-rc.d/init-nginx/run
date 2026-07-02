@@ -7,14 +7,14 @@
 
 # Generate Ingress configuration.
 bashio::var.json \
-    interface "$(bashio::addon.ip_address)" \
-    ingress_port "^$(bashio::addon.ingress_port)" \
+    interface "$(bashio::app.ip_address)" \
+    ingress_port "^$(bashio::app.ingress_port)" \
     | tempio \
         -template /etc/nginx/templates/ingress.gtpl \
         -out /etc/nginx/servers/ingress.conf
 
 # Generate direct access configuration, if enabled.
-if bashio::var.has_value "$(bashio::addon.port 80)"; then
+if bashio::var.has_value "$(bashio::app.port 80)"; then
     if bashio::config.true 'ssl'; then
         bashio::config.require.ssl
     fi
