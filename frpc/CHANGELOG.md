@@ -1,9 +1,5 @@
 # Changelog
 
-## 2026.7.2
-
-- Bump add-on version so Home Assistant can pick up the frpc auth scope compatibility options.
-
 ## 2026.7.1
 
 - Migrated from legacy `config.json` add-on metadata to HA App System style `config.yaml`.
