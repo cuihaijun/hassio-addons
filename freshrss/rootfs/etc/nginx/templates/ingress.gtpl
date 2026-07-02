@@ -9,7 +9,7 @@ server {
     fastcgi_hide_header X-Frame-Options;
     fastcgi_hide_header Content-Security-Policy;
     add_header X-Frame-Options "SAMEORIGIN";
-    add_header Content-Security-Policy "frame-ancestors *";
+    add_header Content-Security-Policy "default-src 'self'; frame-ancestors 'self'";
 
     # Rewrite URLs in responses to include ingress path prefix
     sub_filter_once off;

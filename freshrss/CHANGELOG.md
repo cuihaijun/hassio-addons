@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026.7.5
+
+- Use a safer ingress CSP header that keeps FreshRSS XSS protections while allowing Home Assistant sidebar embedding.
+
 ## 2026.7.4
 
 - Hide FreshRSS FastCGI frame-blocking headers in ingress so the sidebar iframe can render.
