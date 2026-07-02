@@ -1,0 +1,54 @@
+#!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Home Assistant App: FreshRSS
+# Init freshrss
+# ==============================================================================
+
+# Setup data directory
+if ! bashio::fs.directory_exists "/data/freshrss"; then
+    bashio::log.debug 'Data directory not initialized, doing that now...'
+
+    # Setup structure
+    cp -R /usr/share/freshrss/data /data/freshrss
+    chown nginx:nginx -R /data/freshrss
+fi
+
+# Set base URL
+bashio::log.debug "base_url value: '$(bashio::config 'base_url')'"
+
+if ! bashio::fs.file_exists "/data/freshrss/config.php"; then
+    bashio::log.debug 'Config file not found. Using default config.'
+    bashio::log.debug 'Before modification of /usr/share/freshrss/config.default.php:'
+    bashio::log.debug "$(grep base_url /usr/share/freshrss/config.default.php)"
+
+    bashio::log.debug 'Setting URL in default config file...'
+    sed -i -E "s|('base_url'\s*=>\s*)'[^']*'|\1'$(bashio::config 'base_url')'|" /usr/share/freshrss/config.default.php
+
+    bashio::log.debug 'After modification of /usr/share/freshrss/config.default.php:'
+    bashio::log.debug "$(grep base_url /usr/share/freshrss/config.default.php)"
+else
+    bashio::log.debug 'Config file found. Using existing config.'
+    bashio::log.debug 'Before modification of /data/freshrss/config.php:'
+    bashio::log.debug "$(grep base_url /data/freshrss/config.php)"
+
+    bashio::log.debug 'Setting URL in existing config file...'
+    sed -i -E "s|('base_url'\s*=>\s*)'[^']*'|\1'$(bashio::config 'base_url')'|" /data/freshrss/config.php
+
+    bashio::log.debug 'After modification of /data/freshrss/config.php:'
+    bashio::log.debug "$(grep base_url /data/freshrss/config.php)"
+fi
+
+# Ensure /config/extensions exists
+if ! bashio::fs.directory_exists "/config/extensions"; then
+    bashio::log.debug 'Creating /config/extensions directory...'
+    mkdir -p /config/extensions
+    chown nginx:nginx /config/extensions
+
+    # Copy existing FreshRSS extensions (if available)
+    if [ -d "/usr/share/freshrss/extensions" ]; then
+        bashio::log.debug 'Copying default FreshRSS extensions to /config/extensions...'
+        cp -Rn /usr/share/freshrss/extensions/* /config/extensions/
+        chown -R nginx:nginx /config/extensions
+    fi
+fi

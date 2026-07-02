@@ -1,0 +1,11 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Home Assistant App: FreshRSS
+# Runs the PHP-FPM daemon
+# ==============================================================================
+
+# Execute PHP-FPM
+bashio::log.info "Starting php-fpm...."
+
+exec php-fpm83 -R --nodaemonize

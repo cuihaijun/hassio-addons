@@ -1,0 +1,16 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Home Assistant App: FreshRSS
+# Runs the Nginx daemon
+# ==============================================================================
+
+# Wait for PHP-FPM to become available
+bashio::net.wait_for 9002 localhost 900
+if bashio::var.has_value "$(bashio::addon.port 80)"; then
+    bashio::net.wait_for 9001 localhost 900
+fi
+
+bashio::log.info "Starting NGinx...."
+
+exec nginx
