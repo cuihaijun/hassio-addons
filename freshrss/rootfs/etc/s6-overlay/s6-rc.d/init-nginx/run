@@ -8,13 +8,13 @@
 declare ingress_entry
 
 # Get ingress entry and strip leading /
-ingress_entry="$(bashio::addon.ingress_entry)"
+ingress_entry="$(bashio::app.ingress_entry)"
 [[ "${ingress_entry}" =~ ^/(.*)$ ]] && ingress_entry="${BASH_REMATCH[1]}"
 
 # Generate Ingress configuration.
 bashio::var.json \
-    ingress_host "$(bashio::addon.ip_address)" \
-    ingress_port "^$(bashio::addon.ingress_port)" \
+    ingress_host "$(bashio::app.ip_address)" \
+    ingress_port "^$(bashio::app.ingress_port)" \
     ingress_entry "${ingress_entry}" \
     | tempio \
         -template /etc/nginx/templates/ingress.gtpl \
