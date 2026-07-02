@@ -23,6 +23,8 @@ proxy_name: homeassistant
 tcp_remote_port: 6000
 transport_protocol: tcp
 tls_enable: true
+auth_heartbeats: false
+auth_new_work_conns: false
 log_level: info
 admin_enable: false
 admin_addr: 0.0.0.0
@@ -41,6 +43,21 @@ admin_password: ""
 | `local_host` | Local target host, for Home Assistant use `homeassistant` |
 | `local_port` | Local target port, for Home Assistant use `8123` |
 | `tunnel_type` | `tcp` or `http` |
+
+### Authentication Scope Compatibility
+
+If your `frps` enables heartbeat or new work connection authentication, enable the matching client options:
+
+```yaml
+auth_heartbeats: true
+auth_new_work_conns: true
+```
+
+These options generate:
+
+```toml
+auth.additionalScopes = ["HeartBeats", "NewWorkConns"]
+```
 
 ### TCP Mode
 
