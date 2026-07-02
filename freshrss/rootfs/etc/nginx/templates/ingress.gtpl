@@ -11,6 +11,13 @@ server {
     add_header X-Frame-Options "SAMEORIGIN";
     add_header Content-Security-Policy "frame-ancestors *";
 
+    root /usr/share/freshrss/p;
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
 	# this regex is mandatory because of the API
     location ~ ^.+?\.php(/.*)?$ {
         fastcgi_pass 127.0.0.1:9002;
