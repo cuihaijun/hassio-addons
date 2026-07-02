@@ -2,7 +2,7 @@
 
 ## 2026.7.3
 
-- Bumped version to 2026.7.3
+- Pass Home Assistant ingress prefix to FreshRSS PHP requests so redirects stay under ingress.
 
 ## 2026.7.2
 
