@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026.7.4
+
+- Hide FreshRSS FastCGI frame-blocking headers in ingress so the sidebar iframe can render.
+
 ## 2026.7.3
 
 - Pass Home Assistant ingress prefix to FreshRSS PHP requests so redirects stay under ingress.
