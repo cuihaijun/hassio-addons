@@ -30,6 +30,7 @@ server {
         # https://trac.nginx.org/nginx/ticket/321
         set $path_info $fastcgi_path_info;
         fastcgi_param PATH_INFO $path_info;
+        fastcgi_param HTTP_X_FORWARDED_PREFIX /{{ .ingress_entry }};
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include /etc/nginx/includes/fastcgi_params.conf;
     }
