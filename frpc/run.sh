@@ -24,6 +24,8 @@ http_subdomain_host="$(bashio::config 'http_subdomain_host')"
 tcp_remote_port="$(bashio::config 'tcp_remote_port')"
 transport_protocol="$(bashio::config 'transport_protocol')"
 tls_enable="$(bashio::config 'tls_enable')"
+auth_heartbeats="$(bashio::config 'auth_heartbeats')"
+auth_new_work_conns="$(bashio::config 'auth_new_work_conns')"
 log_level="$(bashio::config 'log_level')"
 admin_enable="$(bashio::config 'admin_enable')"
 admin_addr="$(bashio::config 'admin_addr')"
@@ -71,6 +73,21 @@ log.to = "console"
 log.level = "${log_level_toml}"
 
 EOF
+
+auth_scopes=()
+if bashio::var.true "${auth_heartbeats}"; then
+  auth_scopes+=('"HeartBeats"')
+fi
+if bashio::var.true "${auth_new_work_conns}"; then
+  auth_scopes+=('"NewWorkConns"')
+fi
+if (( ${#auth_scopes[@]} > 0 )); then
+  auth_scopes_toml="$(IFS=,; printf '%s' "${auth_scopes[*]}")"
+  cat >> "${CONFIG_FILE}" <<EOF
+auth.additionalScopes = [${auth_scopes_toml}]
+
+EOF
+fi
 
 if bashio::var.true "${admin_enable}"; then
   cat >> "${CONFIG_FILE}" <<EOF

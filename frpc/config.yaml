@@ -34,6 +34,8 @@ options:
   tcp_remote_port: 6000
   transport_protocol: tcp
   tls_enable: true
+  auth_heartbeats: false
+  auth_new_work_conns: false
   log_level: info
   admin_enable: false
   admin_addr: 0.0.0.0
@@ -53,6 +55,8 @@ schema:
   tcp_remote_port: port?
   transport_protocol: list(tcp|kcp|quic|websocket|wss)
   tls_enable: bool
+  auth_heartbeats: bool
+  auth_new_work_conns: bool
   log_level: list(trace|debug|info|warn|error)
   admin_enable: bool
   admin_addr: str
