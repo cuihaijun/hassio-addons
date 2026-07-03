@@ -1,6 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/base:latest
-FROM ghcr.io/diygod/rsshub:latest AS rsshub
-FROM ${BUILD_FROM}
+FROM ghcr.io/diygod/rsshub:chromium-bundled
 
 ARG BUILD_ARCH
 ARG BUILD_DATE
@@ -10,41 +8,41 @@ ARG BUILD_REF
 ARG BUILD_REPOSITORY
 ARG BUILD_VERSION
 
-# RSSHub 默认环境变量
-ENV NODE_ENV=production
-ENV CACHE_TYPE=memory
-ENV CACHE_EXPIRE=3600
-ENV CACHE_CONTENT_EXPIRE=3600
-ENV DISALLOW_ROBOT=false
-ENV ENABLE_CACHE_MANAGER=true
-ENV REQUEST_RETRY=3
-ENV REQUEST_TIMEOUT=30000
-ENV LOGGER_LEVEL=info
-
-RUN apk add --no-cache curl nginx npm
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+      curl \
+      git \
+      nginx \
+      procps \
+      redis-server \
+    && rm -rf /var/lib/apt/lists/*
 
 # RSSHub 默认环境变量
 ENV NODE_ENV=production \
-    CACHE_TYPE=memory \
+    CACHE_TYPE=redis \
+    REDIS_URL=redis://127.0.0.1:6379/ \
     CACHE_EXPIRE=3600 \
     CACHE_CONTENT_EXPIRE=3600 \
+    PLAYWRIGHT_BROWSERS_PATH=/app/node_modules/.cache/ms-playwright \
     DISALLOW_ROBOT=false \
     ENABLE_CACHE_MANAGER=true \
     REQUEST_RETRY=3 \
     REQUEST_TIMEOUT=30000 \
     LOGGER_LEVEL=info
 
-COPY --from=rsshub /app /app
 COPY rootfs/ /
-RUN find /etc/cont-init.d /etc/services.d -type f -print -exec chmod +x {} \;
+RUN chmod +x /usr/local/bin/run-addon.sh
 
-WORKDIR /
+WORKDIR /app
 
 EXPOSE 1200
 EXPOSE 8099
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
   CMD curl -f http://127.0.0.1:1201/healthz || exit 1
+
+ENTRYPOINT ["dumb-init", "--", "/usr/local/bin/run-addon.sh"]
+CMD []
 
 LABEL \
   io.hass.name="${BUILD_NAME}" \

@@ -1,22 +1,21 @@
-# RSSHub Add-on Portainer Structure Audit
+# RSSHub Add-on Structure Audit
 
-Date: 2026-07-01
+Date: 2026-07-03
 
 ## Reference
 
-- Reference add-on: `alexbelgium/hassio-addons/portainer`
-- Reference structure checked from GitHub and local files:
+- Reference deployment: official RSSHub Docker Compose
+- Reference add-on patterns checked from local files:
   - `config.yaml`
   - `Dockerfile`
-  - `rootfs/etc/cont-init.d/*`
-  - `rootfs/etc/services.d/*`
-  - Nginx ingress template and SSL support files
+  - `rootfs/usr/local/bin/run-addon.sh`
+  - Nginx ingress/direct HTTPS support files
 
 ## Findings
 
-1. `config.yaml` did not expose HTTPS-ready ingress/frontend settings.
+1. `config.yaml` exposes HTTPS-ready ingress/frontend settings.
    - Required value: `0.0.0.0:1200`
-   - Fix: added `options.bind_address` with default `0.0.0.0:1200`, `ssl`, `certfile`, and `keyfile`.
+   - Current: `options.bind_address` defaults to `0.0.0.0:1200`; `ssl`, `certfile`, and `keyfile` support direct HTTPS.
 
 2. Port mapping was inconsistent with the frontend process.
    - Previous mapping: `1200/tcp: 5000`
@@ -27,44 +26,44 @@ Date: 2026-07-01
    - Portainer reference uses explicit ingress/port exposure rather than host networking.
    - Fix: removed `host_network: true`.
 
-4. Sidebar integration now follows the Nginx ingress proxy pattern.
-   - Existing: `ingress: true`, `panel_icon`, `panel_title`.
-   - Fix: set `ingress_port: 8099`, added `ingress_stream: true`, and generated an Nginx ingress server that proxies to RSSHub.
+4. Sidebar integration follows the Nginx ingress proxy pattern.
+   - Current: `ingress: true`, `panel_icon`, `panel_title`, `ingress_port: 8099`, `ingress_stream: true`.
+   - Runtime: `run-addon.sh` reads Supervisor `/addons/self/info` and generates an Nginx ingress server that proxies to RSSHub.
 
 5. HTTPS support is now explicit.
    - Home Assistant sidebar HTTPS is provided by Home Assistant ingress.
    - Direct HTTPS on port `1200` is available when `ssl: true` and `/ssl` certificates are configured.
 
-6. S6-overlay structure was rebuilt.
-   - Previous files mixed `/etc/s6-overlay/s6-rc.d` and `/etc/s6-overlay/s6-services`.
-   - Fix: use Home Assistant base image paths: `/etc/cont-init.d/30-nginx.sh`, `/etc/services.d/rsshub`, and `/etc/services.d/nginx`.
+6. Runtime now targets the official Compose-style complete experience.
+   - Current base image: `ghcr.io/diygod/rsshub:chromium-bundled`.
+   - Current bundled services: RSSHub, Nginx, Redis.
+   - Browser support: bundled Chromium/Playwright via `CHROMIUM_EXECUTABLE_PATH`.
 
-7. The previous `run.sh` was redundant.
-   - It exported `HOSTNAME`, which RSSHub does not use for binding.
-   - Fix: removed the top-level startup script and moved runtime configuration into the S6 RSSHub service.
+7. The previous S6/Home Assistant base layout is no longer used.
+   - Current entrypoint: `/usr/local/bin/run-addon.sh`.
+   - The entrypoint reads `/data/options.json`, starts Redis when `cache_type=redis`, starts RSSHub on `127.0.0.1:1201`, then starts Nginx.
 
 8. Health check targeted the generic root path.
    - RSSHub upstream compose uses `/healthz`.
-   - Fix: changed Dockerfile health check to `http://127.0.0.1:1201/healthz`.
+   - Current health check: `http://127.0.0.1:1201/healthz`.
 
 ## Files Modified
 
 - `config.yaml`
 - `Dockerfile`
-- `run.sh`
 - `build.yaml`
 - `README.md`
 - `audit_report.md`
-- `rootfs/etc/cont-init.d/30-nginx.sh`
-- `rootfs/etc/services.d/rsshub/*`
-- `rootfs/etc/services.d/nginx/*`
+- `rootfs/usr/local/bin/run-addon.sh`
 - `rootfs/etc/nginx/*`
 
 ## Files Removed
 
 - invalid previous `rootfs/etc/s6-overlay/*` layout
 - top-level `run.sh`
+- obsolete Home Assistant base/S6 files under `rootfs/etc/cont-init.d` and `rootfs/etc/services.d`
+- obsolete tempio Nginx template
 
 ## Final Assessment
 
-The add-on now uses the Portainer-style Nginx ingress pattern while keeping RSSHub as a local backend service. It supports sidebar ingress over Home Assistant HTTPS and optional direct HTTPS on port `1200`.
+The add-on now uses a single entrypoint on top of `rsshub:chromium-bundled`, giving the same default dependency experience as the official RSSHub Docker Compose deployment: RSSHub, Redis, and browser-capable Playwright support are available without requiring separate HA add-ons or external containers. It supports sidebar ingress over Home Assistant HTTPS and optional direct HTTPS on port `1200`.

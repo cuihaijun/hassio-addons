@@ -1,5 +1,0 @@
-#!/usr/bin/with-contenv sh
-
-if [ "$1" -ne 0 ] && [ "$1" -ne 256 ] && command -v s6-svscanctl >/dev/null 2>&1 && [ -d /var/run/s6/services ]; then
-  s6-svscanctl -t /var/run/s6/services
-fi

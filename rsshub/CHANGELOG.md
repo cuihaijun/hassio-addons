@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026.7.8
+
+- Added bundled Redis service managed by the add-on entrypoint and enabled Redis cache by default
+- Added bundled Chromium runtime support through `CHROMIUM_EXECUTABLE_PATH`
+- Kept `redis_url` and `playwright_ws_endpoint` as advanced external overrides
+- Added `git` to the runtime image to avoid RSSHub startup warnings
+
+## 2026.7.7
+
+- Fixed RSSHub runtime option export so `cache_type`, `disallow_robot`, and cache manager settings are applied by the service process
+- Added optional `access_key` support for RSSHub `ACCESS_KEY`
+- Added optional `redis_url` support for RSSHub `REDIS_URL`
+- Added optional `playwright_ws_endpoint` support for browserless/Playwright routes
+- Updated README to document add-on options instead of unsupported `environment_variables`
+
 ## 2026.7.6
 
 - Restored RSSHub environment variables configuration

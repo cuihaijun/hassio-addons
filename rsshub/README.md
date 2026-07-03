@@ -8,7 +8,7 @@ Generate RSS feeds for everything with RSSHub integrated into Home Assistant.
 - Sidebar integration through Home Assistant ingress
 - Opens through HTTPS when Home Assistant is accessed over HTTPS
 - Optional direct HTTPS on port 1200 with Home Assistant `/ssl` certificates
-- Nginx frontend plus RSSHub backend managed by S6 services
+- Nginx frontend plus RSSHub, Redis, and Chromium/Playwright support managed by the add-on entrypoint
 
 ## Installation
 
@@ -33,59 +33,44 @@ The addon listens on `0.0.0.0:1200` by default for direct access. Home Assistant
 | `request_timeout` | unset | Optional RSSHub `REQUEST_TIMEOUT`. |
 | `cache_expire` | unset | Optional RSSHub `CACHE_EXPIRE`. |
 | `cache_content_expire` | unset | Optional RSSHub `CACHE_CONTENT_EXPIRE`. |
+| `cache_type` | `redis` | RSSHub cache backend, `redis` uses the bundled Redis service. |
+| `redis_url` | unset | Optional RSSHub `REDIS_URL` override. Leave empty to use bundled Redis. |
+| `playwright_ws_endpoint` | unset | Optional RSSHub `PLAYWRIGHT_WS_ENDPOINT` override. Leave empty to use bundled Chromium. |
+| `access_key` | unset | Optional RSSHub `ACCESS_KEY`. Leave empty to disable access-key protection. |
+| `disallow_robot` | `false` | RSSHub `DISALLOW_ROBOT`. |
+| `enable_cache_manager` | `true` | RSSHub `ENABLE_CACHE_MANAGER`. |
 | `logger_level` | unset | Optional RSSHub log level. |
 
-### Environment Variables
+### Cache, Browserless, and Access Control
 
-RSSHub supports various environment variables to enable additional features and platform integrations. Configure these in the addon's **Configuration** tab under **Environment Variables**:
+This add-on is packaged for the same out-of-the-box experience as the official Docker Compose example:
 
-#### Cache & Performance
+- RSSHub runs behind the add-on Nginx frontend.
+- Redis runs inside the add-on and persists under the add-on `/data` directory.
+- Chromium is installed in the add-on image and exposed to RSSHub through `CHROMIUM_EXECUTABLE_PATH`.
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `NODE_ENV` | `production` | Node environment mode |
-| `CACHE_TYPE` | `memory` | Cache type (`memory` or `redis`) |
-| `CACHE_EXPIRE` | `3600` | Cache expiration time in seconds |
-| `CACHE_CONTENT_EXPIRE` | `3600` | Content cache expiration in seconds |
-| `DISALLOW_ROBOT` | `false` | Disallow search engine crawling |
-| `ENABLE_CACHE_MANAGER` | `true` | Enable cache manager |
-| `REQUEST_RETRY` | `3` | Number of request retries |
-| `REQUEST_TIMEOUT` | `30000` | Request timeout in milliseconds |
-
-#### Platform API Keys
-
-| Variable | Required | Description |
-| --- | --- | --- |
-| `GITHUB_ACCESS_TOKEN` | For GitHub routes | GitHub personal access token |
-| `TWITTER_USERNAME` | For Twitter routes | Twitter/X username |
-| `TWITTER_PASSWORD` | For Twitter routes | Twitter/X password |
-| `TWITTER_AUTH_TOKEN` | For Twitter routes | Twitter/X auth token |
-| `YOUTUBE_KEY` | For YouTube routes | YouTube Data API v3 key |
-| `WECHAT_MP_COOKIE` | For WeChat routes | WeChat Official Account cookie |
-| `WEIBO_COOKIES` | For Weibo routes | Weibo login cookies |
-| `BILIBILI_COOKIE_你的UID` | For Bilibili routes | Bilibili user cookie (replace 你的UID with your UID) |
-
-#### Example Configuration
+The default configuration is enough for Redis cache and Playwright-backed routes:
 
 ```yaml
-environment_variables:
-  # Cache settings
-  CACHE_TYPE: memory
-  CACHE_EXPIRE: 7200
-  
-  # GitHub integration
-  GITHUB_ACCESS_TOKEN: "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  
-  # Twitter/X integration
-  TWITTER_USERNAME: "your_username"
-  TWITTER_PASSWORD: "your_password"
-  TWITTER_AUTH_TOKEN: "your_auth_token"
-  
-  # YouTube integration
-  YOUTUBE_KEY: "AIzaSyxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+cache_type: redis
+redis_url: ""
+playwright_ws_endpoint: ""
+access_key: "change-me"
 ```
 
-After modifying environment variables, **restart the addon** to apply changes.
+Set `redis_url` only when you want to use an external Redis instance. Set `playwright_ws_endpoint` only when you want to use an external browserless/Playwright service instead of bundled Chromium.
+
+When `access_key` is set, pass the key with RSSHub URLs:
+
+```text
+https://homeassistant.local:1200/api/radar/rules?key=change-me
+```
+
+### Route-Specific Environment Variables
+
+For route-specific secrets such as `GITHUB_ACCESS_TOKEN`, `YOUTUBE_KEY`, `WEIBO_COOKIES`, or `BILIBILI_COOKIE_你的UID`, create `/addon_configs/rsshub/routes_env.sh` and export the variables there. Restart the add-on after editing.
+
+Keep secrets out of public repository files.
 
 HTTPS through the sidebar is provided by Home Assistant ingress when Home Assistant itself is served over HTTPS. Direct access to port `1200` is HTTP by default and becomes HTTPS only when `ssl: true`.
 
