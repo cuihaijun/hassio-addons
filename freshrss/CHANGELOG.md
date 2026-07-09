@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026.7.6
+
+- Keep FreshRSS internal user log directory for anonymous image/favicon proxy requests.
+- Allow external and data URI images in the ingress CSP so subscription content images render inside Home Assistant.
+- Collapse duplicated ingress prefixes produced by response URL rewriting.
+
 ## 2026.7.5
 
 - Use a safer ingress CSP header that keeps FreshRSS XSS protections while allowing Home Assistant sidebar embedding.

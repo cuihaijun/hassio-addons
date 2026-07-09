@@ -53,9 +53,11 @@ if ! bashio::fs.directory_exists "/config/extensions"; then
     fi
 fi
 
-placeholder_user_dir="/data/freshrss/users/_"
-if bashio::fs.directory_exists "${placeholder_user_dir}" \
-    && ! find "${placeholder_user_dir}" -mindepth 1 ! -name '.gitignore' ! -name 'index.html' | grep -q .; then
-    bashio::log.debug "Removing empty FreshRSS placeholder user directory: ${placeholder_user_dir}"
-    rm -rf "${placeholder_user_dir}"
+internal_user_dir="/data/freshrss/users/_"
+if ! bashio::fs.directory_exists "${internal_user_dir}"; then
+    bashio::log.debug "Creating FreshRSS internal user directory: ${internal_user_dir}"
+    mkdir -p "${internal_user_dir}"
 fi
+
+touch "${internal_user_dir}/log.txt"
+chown -R nginx:nginx "${internal_user_dir}"
