@@ -5,6 +5,7 @@
 - Keep FreshRSS internal user log directory for anonymous image/favicon proxy requests.
 - Allow external and data URI images in the ingress CSP so subscription content images render inside Home Assistant.
 - Collapse duplicated ingress prefixes produced by response URL rewriting.
+- Match the default direct-access SSL option with the current Home Assistant App configuration.
 
 ## 2026.7.5
 

@@ -23,8 +23,8 @@ Example app configuration:
 
 ```yaml
 log_level: info
-base_url: example.domain.com
-ssl: false
+base_url: ""
+ssl: true
 certfile: fullchain.pem
 keyfile: privkey.pem
 ```

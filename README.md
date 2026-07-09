@@ -69,7 +69,7 @@ FreshRSS Add-on 支持通过 Home Assistant 侧边栏打开网页界面。
 
 ```yaml
 base_url: ""
-ssl: false
+ssl: true
 ```
 
 如果通过固定外部域名或直连端口访问 FreshRSS，再按实际访问地址配置 `base_url`。
