@@ -9,7 +9,7 @@ server {
     fastcgi_hide_header X-Frame-Options;
     fastcgi_hide_header Content-Security-Policy;
     add_header X-Frame-Options "SAMEORIGIN";
-    add_header Content-Security-Policy "default-src 'self'; img-src 'self' http: https: data: blob:; media-src 'self' http: https: data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-eval'; font-src 'self' data:; frame-ancestors 'self'";
+    add_header Content-Security-Policy "default-src 'self'; img-src 'self' http: https: data: blob:; media-src 'self' http: https: data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self' data:; frame-ancestors 'self'";
 
     # Rewrite URLs in responses to include ingress path prefix
     sub_filter_once off;

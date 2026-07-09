@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026.7.7
+
+- Remove `unsafe-eval` from the ingress CSP so FreshRSS no longer shows the unsafe CSP warning.
+
 ## 2026.7.6
 
 - Keep FreshRSS internal user log directory for anonymous image/favicon proxy requests.
