@@ -199,6 +199,9 @@ fi
 if [ -f /addon_configs/rsshub/routes_env.sh ]; then
   # shellcheck disable=SC1091
   . /addon_configs/rsshub/routes_env.sh
+elif [ -f /config/addons_config/rsshub/routes_env.sh ]; then
+  # shellcheck disable=SC1091
+  . /config/addons_config/rsshub/routes_env.sh
 fi
 
 log "Starting RSSHub backend on 127.0.0.1:1201"

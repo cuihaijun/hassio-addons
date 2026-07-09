@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026.7.9
+
+- Fixed routes_env.sh lookup path: now also checks `/config/addons_config/rsshub/routes_env.sh`
+  for environment variable authentication (Cookie/Token for social media routes)
+- Added example routes_env.sh file for reference
+
 ## 2026.7.8
 
 - Added bundled Redis service managed by the add-on entrypoint and enabled Redis cache by default

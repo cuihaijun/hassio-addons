@@ -1,0 +1,106 @@
+#!/bin/sh
+# RSSHub Routes Environment Variables
+# Place this file at: /homeassistant/addons_config/rsshub/routes_env.sh
+#   (on HA host filesystem mount at /mnt/data/supervisor/homeassistant/addons_config/rsshub/routes_env.sh)
+#
+# Inside the RSSHub container this maps to: /config/addons_config/rsshub/routes_env.sh
+#
+# After modifying this file, restart the RSSHub addon for changes to take effect.
+# These environment variables provide authentication credentials for various RSSHub routes.
+#
+# ⚠️ SECURITY: This file may contain sensitive cookies and tokens. Keep it safe.
+# Add it to your HA config file backup exclusions.
+
+# ============================================================
+# Bilibili - Cookie (needed for dynamic, following, bangumi routes)
+# ============================================================
+# Get cookie from browser while logged into bilibili.com (F12 > Network > copy cookie header, or from Storage > Cookies)
+# Format: BILIBILI_COOKIE_{your_uid}
+# export BILIBILI_COOKIE_2267573="buvid3=...; DedeUserID=...; bili_jct=...; sid=..."
+
+# ============================================================
+# Weibo (微博) - Cookie
+# ============================================================
+# Get cookie from browser while logged into https://m.weibo.cn/ (mobile version recommended)
+# Format: WEIBO_COOKIE_{your_uid}
+# export WEIBO_COOKIE_3306934123="SUB=...; SUBP=...; SCF=...; SUHB=..."
+
+# ============================================================
+# Zhihu (知乎) - Cookie (only needed for a few routes)
+# ============================================================
+# Get cookie from https://www.zhihu.com/ while logged in
+# export ZHIHU_COOKIES='d_c0=...; z_c0=...; ...'
+
+# ============================================================
+# Twitter / X
+# ============================================================
+# Method 1: Auth token (simplest)
+# export TWITTER_AUTH_TOKEN="..."
+# Method 2: Username + Password + Auth Token
+# export TWITTER_USERNAME="your_username"
+# export TWITTER_PASSWORD="your_password"
+# Method 3: OAuth token (for API)
+# export TWITTER_OAUTH_TOKEN="..."
+# export TWITTER_OAUTH_TOKEN_SECRET="..."
+
+# ============================================================
+# Instagram (needs Cookie/Login)
+# ============================================================
+# export INSTAGRAM_USERNAME="your_username"
+# export INSTAGRAM_PASSWORD="your_password"
+# Or use Cookie:
+# export INSTAGRAM_SESSIONID="..."
+
+# ============================================================
+# YouTube
+# ============================================================
+# export YOUTUBE_KEY="your_youtube_api_key"
+
+# ============================================================
+# Discord (Authorization Token)
+# ============================================================
+# export DISCORD_AUTHORIZATION="your_discord_token"
+
+# ============================================================
+# Telegram (Bot Token)
+# ============================================================
+# export TELEGRAM_TOKEN="your_bot_token:..."
+
+# ============================================================
+# Pixiv
+# ============================================================
+# export PIXIV_REFRESHTOKEN="your_pixiv_refresh_token"
+
+# ============================================================
+# TikTok
+# ============================================================
+# export TIKTOK_USERNAME="your_username"
+# export TIKTOK_PASSWORD="your_password"
+
+# ============================================================
+# 小红书 (Xiaohongshu / RED)
+# ============================================================
+# export XIAOHONGSHU_COOKIE="..."
+
+# ============================================================
+# 知识星球 (zsxq)
+# ============================================================
+# export ZSXQ_COOKIE="..."
+
+# ============================================================
+# Lofter (Cookie)
+# ============================================================
+# export LOFTER_EMAIL="your_email"
+# export LOFTER_PASSWORD="your_password"
+
+# ============================================================
+# WeChat Official Accounts (微信公众号)
+# ============================================================
+# export WECHAT_OFFICIAL_ACCOUNTS_COOKIE="..."
+
+# ============================================================
+# Other common env vars
+# ============================================================
+# export GITHUB_ACCESS_TOKEN="ghp_..."
+# export DOUBAN_COOKIE="..."
+# export NEWRANK_COOKIE="..."
