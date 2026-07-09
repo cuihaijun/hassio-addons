@@ -196,7 +196,10 @@ if [ "$CACHE_TYPE" = "redis" ] && [ "$REDIS_URL" = "redis://127.0.0.1:6379/" ]; 
     --loglevel notice &
 fi
 
-if [ -f /addon_configs/rsshub/routes_env.sh ]; then
+if [ -f /config/routes_env.sh ]; then
+  # shellcheck disable=SC1091
+  . /config/routes_env.sh
+elif [ -f /addon_configs/rsshub/routes_env.sh ]; then
   # shellcheck disable=SC1091
   . /addon_configs/rsshub/routes_env.sh
 elif [ -f /config/addons_config/rsshub/routes_env.sh ]; then

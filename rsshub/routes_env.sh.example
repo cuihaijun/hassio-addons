@@ -1,9 +1,12 @@
 #!/bin/sh
 # RSSHub Routes Environment Variables
-# Place this file at: /homeassistant/addons_config/rsshub/routes_env.sh
-#   (on HA host filesystem mount at /mnt/data/supervisor/homeassistant/addons_config/rsshub/routes_env.sh)
+# Place this file on the Home Assistant host at:
+#   /addon_configs/{REPO}_rsshub/routes_env.sh
 #
-# Inside the RSSHub container this maps to: /config/addons_config/rsshub/routes_env.sh
+# For a local add-on install, {REPO} is usually "local".
+# For a GitHub repository install, {REPO} is Home Assistant's repository hash.
+#
+# Inside the RSSHub container this maps to: /config/routes_env.sh
 #
 # After modifying this file, restart the RSSHub addon for changes to take effect.
 # These environment variables provide authentication credentials for various RSSHub routes.

@@ -68,7 +68,21 @@ https://homeassistant.local:1200/api/radar/rules?key=change-me
 
 ### Route-Specific Environment Variables
 
-For route-specific secrets such as `GITHUB_ACCESS_TOKEN`, `YOUTUBE_KEY`, `WEIBO_COOKIES`, or `BILIBILI_COOKIE_你的UID`, create `/addon_configs/rsshub/routes_env.sh` and export the variables there. Restart the add-on after editing.
+For route-specific secrets such as `GITHUB_ACCESS_TOKEN`, `YOUTUBE_KEY`, `WEIBO_COOKIES`, or `BILIBILI_COOKIE_你的UID`, create `routes_env.sh` in this add-on's Home Assistant public config folder and export the variables there.
+
+Home Assistant mounts that folder at `/config` inside the add-on container, so RSSHub loads:
+
+```text
+/config/routes_env.sh
+```
+
+On the Home Assistant host, the folder is:
+
+```text
+/addon_configs/{REPO}_rsshub/
+```
+
+For a local add-on install, `{REPO}` is usually `local`. For a GitHub repository install, `{REPO}` is the repository hash shown by Home Assistant. Restart the add-on after editing.
 
 Keep secrets out of public repository files.
 

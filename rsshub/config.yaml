@@ -1,6 +1,6 @@
 ---
 name: RSSHub
-version: 2026.7.9
+version: 2026.7.10
 slug: rsshub
 description: Generate a RSS/Atom/JSON feed from anything
 url: https://github.com/cuihaijun/hassio-addons
@@ -22,7 +22,7 @@ ports_description:
   1200/tcp: "Web Interface (HTTP or HTTPS when ssl is enabled)"
 watchdog: "tcp://[HOST]:[PORT:1200]"
 map:
-  - config:rw
+  - addon_config:rw
   - share:rw
   - ssl:rw
 options:

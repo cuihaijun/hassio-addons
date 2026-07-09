@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026.7.10
+
+- Mapped the add-on public config folder with `addon_config:rw` so route-specific
+  Cookie/Token files are available to the container.
+- Load route-specific environment variables from `/config/routes_env.sh`, with
+  older paths kept as compatibility fallbacks.
+- Updated README and `routes_env.sh.example` to document the Home Assistant
+  `/addon_configs/{REPO}_rsshub/routes_env.sh` host path.
+
 ## 2026.7.9
 
 - Fixed routes_env.sh lookup path: now also checks `/config/addons_config/rsshub/routes_env.sh`
