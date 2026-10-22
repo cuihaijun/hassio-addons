@@ -96,6 +96,16 @@ else
     bashio::log.debug "$(grep base_url /data/freshrss/config.php)"
 fi
 
+# Disable simplepie syslog to prevent journald/console flooding on host
+if [ -f "/usr/share/freshrss/config.default.php" ]; then
+    bashio::log.debug 'Disabling simplepie syslog in config.default.php...'
+    sed -i -E "s|('simplepie_syslog_enabled'\s*=>\s*)[^,]+,|\1false,|" /usr/share/freshrss/config.default.php
+fi
+if [ -f "/data/freshrss/config.php" ]; then
+    bashio::log.debug 'Disabling simplepie syslog in config.php...'
+    sed -i -E "s|('simplepie_syslog_enabled'\s*=>\s*)[^,]+,|\1false,|" /data/freshrss/config.php
+fi
+
 # Ensure /config/extensions exists
 if ! bashio::fs.directory_exists "/config/extensions"; then
     bashio::log.debug 'Creating /config/extensions directory...'

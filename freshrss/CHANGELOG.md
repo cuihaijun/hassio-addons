@@ -8,6 +8,9 @@
   the persistent `/config/logs/` directory so the HA terminal no
   longer floods. Logs are rotated automatically when any single file
   exceeds 5 MiB.
+- Disable `simplepie_syslog_enabled` and copy to syslog in `init-freshrss`
+  and `constants.local.php` to prevent PHP syslog bypass from flooding
+  the host console.
 
 ## 2026.7.7
 
