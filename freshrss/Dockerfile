@@ -43,6 +43,9 @@ RUN \
 # Copy root filesystem
 COPY rootfs /
 
+# Ensure all scripts and s6-overlay service definitions have execute permissions
+RUN chmod -R +x /etc/s6-overlay/s6-rc.d/ /usr/bin/
+
 # Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
