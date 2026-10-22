@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026.10.22
+
+- Upgrade FreshRSS to 1.30.4.
+- Bump base image to 21.0.8 (Alpine 3.22).
+- Redirect all background service logs (nginx / php-fpm / refresh) to
+  the persistent `/config/logs/` directory so the HA terminal no
+  longer floods. Logs are rotated automatically when any single file
+  exceeds 5 MiB.
+
 ## 2026.7.7
 
 - Remove `unsafe-eval` from the ingress CSP so FreshRSS no longer shows the unsafe CSP warning.

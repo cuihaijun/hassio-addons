@@ -91,3 +91,20 @@ This app allows you to store and manage FreshRSS extensions using the **addon_co
 ```
 /addon_configs/{REPO}_freshrss/extensions
 ```
+
+## Logs
+
+All background service logs are written to the persistent `addon_config`
+volume and no longer appear in the Home Assistant supervisor terminal:
+
+- Host path: `/addon_configs/<repo>_freshrss/logs/`
+- Container path: `/config/logs/`
+
+Files:
+
+- `refresh.log` — FreshRSS actualize script output (every 20 minutes)
+- `nginx-access.log` / `nginx-error.log`
+- `php-fpm.log` / `php-error.log`
+
+Logs are rotated automatically when any single file exceeds 5 MiB;
+three compressed archives are kept per file.

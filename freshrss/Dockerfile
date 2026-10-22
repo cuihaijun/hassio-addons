@@ -5,7 +5,7 @@ FROM $BUILD_FROM
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ARG FRESHRSS_VERSION="1.29.1"
+ARG FRESHRSS_VERSION="1.30.4"
 
 # Setup base
 # hadolint ignore=DL3003,DL3018
@@ -16,8 +16,9 @@ RUN \
         git=2.54.0-r0 \
     \
     && apk add --no-cache \
-        tzdata=2026b-r0 \
-        nginx=1.30.3-r0 \
+        tzdata=2026e-r0 \
+        nginx=1.30.4-r1 \
+        logrotate \
         php83 php83-curl php83-gmp php83-intl php83-mbstring php83-xml php83-zip \
         php83-ctype php83-dom php83-fileinfo php83-iconv php83-json php83-opcache \
         php83-openssl php83-phar php83-session php83-simplexml php83-xmlreader \

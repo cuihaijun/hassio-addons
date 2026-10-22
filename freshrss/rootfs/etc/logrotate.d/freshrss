@@ -1,0 +1,14 @@
+/config/logs/refresh.log
+/config/logs/nginx-access.log
+/config/logs/nginx-error.log
+/config/logs/php-fpm.log
+/config/logs/php-error.log
+{
+    size 5M
+    rotate 3
+    compress
+    delaycompress
+    missingok
+    notifempty
+    copytruncate
+}

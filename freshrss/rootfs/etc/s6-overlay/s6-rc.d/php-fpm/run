@@ -8,4 +8,5 @@
 # Execute PHP-FPM
 bashio::log.info "Starting php-fpm...."
 
-exec php-fpm83 -R --nodaemonize
+mkdir -p /config/logs
+exec php-fpm83 -R --nodaemonize >> /config/logs/php-fpm.log 2>&1

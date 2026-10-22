@@ -5,6 +5,63 @@
 # Init freshrss
 # ==============================================================================
 
+# Initialize persistent log directory on addon_config volume
+if ! bashio::fs.directory_exists "/config/logs"; then
+    bashio::log.debug 'Creating persistent log directory /config/logs...'
+    mkdir -p /config/logs
+fi
+chmod 755 /config/logs
+
+# Create compatibility path /config/app/68949b71_freshrss/logs
+mkdir -p /config/app/68949b71_freshrss
+compat_logs="/config/app/68949b71_freshrss/logs"
+if [ -L "${compat_logs}" ]; then
+    # Symlink already exists; ensure it points to /config/logs
+    ln -sfn /config/logs "${compat_logs}"
+elif [ -d "${compat_logs}" ]; then
+    # Legacy physical directory exists: safely migrate any existing files to /config/logs
+    bashio::log.info "Migrating legacy log directory ${compat_logs} to /config/logs..."
+    migration_failed=0
+    shopt -s nullglob dotglob
+    for file in "${compat_logs}"/*; do
+        base_name="$(basename "${file}")"
+        if [ "${base_name}" = "." ] || [ "${base_name}" = ".." ]; then
+            continue
+        fi
+        base_name="$(basename "${file}")"
+        if [ "${base_name}" = "." ] || [ "${base_name}" = ".." ] || [ "${base_name}" = "*" ]; then
+            continue
+        fi
+        dest="/config/logs/${base_name}"
+        if [ -e "${dest}" ] || [ -L "${dest}" ]; then
+            idx=1
+            timestamp="$(date +%s)"
+            candidate="/config/logs/${base_name}.migrated_${timestamp}"
+            while [ -e "${candidate}" ] || [ -L "${candidate}" ]; do
+                candidate="/config/logs/${base_name}.migrated_${timestamp}_${idx}"
+                idx=$((idx + 1))
+            done
+            dest="${candidate}"
+        fi
+        if ! cp -a "${file}" "${dest}"; then
+            bashio::log.error "Failed to copy ${file} to ${dest}; keeping legacy directory intact!"
+            migration_failed=1
+            break
+        fi
+    done
+    shopt -u nullglob dotglob
+
+    if [ "${migration_failed}" -eq 0 ]; then
+        rm -rf "${compat_logs}"
+        ln -sf /config/logs "${compat_logs}"
+        bashio::log.info "Legacy log directory successfully migrated and replaced with symlink."
+    else
+        bashio::exit.nok "Aborting FreshRSS initialization due to log migration failure"
+    fi
+elif [ ! -e "${compat_logs}" ]; then
+    ln -sf /config/logs "${compat_logs}"
+fi
+
 # Setup data directory
 if ! bashio::fs.directory_exists "/data/freshrss"; then
     bashio::log.debug 'Data directory not initialized, doing that now...'
